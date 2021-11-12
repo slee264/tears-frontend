@@ -5,11 +5,12 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import "@fontsource/mohave"
+import "@fontsource/mohave";
+import store from './store';
+import { Provider } from 'react-redux';
+import MenuTabHorizontal from './menu-tab-horizontal';
 
-import MenuTabHorizontal from './menu-tab-horizontal.js';
-
-function HomePage(props) {
+function Index(props) {
     return(
       <div>
         <Grid container sx={{backgroundColor: '#a8dadc',
@@ -33,6 +34,8 @@ function HomePage(props) {
 }
 
 ReactDOM.render(
-  <HomePage />,
+  <Provider store={store}>
+    <Index />
+  </Provider>,
   document.getElementById('root')
 );
