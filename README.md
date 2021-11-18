@@ -2,7 +2,7 @@
 
 TEARS helps you overcome tough times using the TEARs principle.
 TEARS stands for Talking, Exercising, Artistic writing, Recording, and Sobbing.
-I've started this project to help anyone going through tough times in their lives.
+I've started this project to help people get through tough times and improve their mental health.
 
 ## Available Scripts
 
