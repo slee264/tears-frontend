@@ -144,6 +144,8 @@ export default function WritingHome(props){
   const handleDelete = async () => {
     const result = await server.delete('/writes/' + dialogue.id);
     if(result) fetchWrites();
+
+    setDialogueOpen(false);
   }
 
   const handleClickNew = () => {
