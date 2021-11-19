@@ -41,7 +41,6 @@ export default function WritingHome(props){
   const [dialogue_edit, setDialogueEdit] = React.useState(false);
 
   const [new_dialogue_open, setNewDialogueOpen] = React.useState(false);
-  const [confirm_modal_open, setConfirmModalOpen] = React.useState(false);
   const [alert_open, setAlertOpen] = React.useState(false);
   const [confirm_alert, setConfirmAlert] = React.useState(false);
   const [save_success, setSaveSuccess] = React.useState(false);
@@ -115,13 +114,15 @@ export default function WritingHome(props){
     setDialogue({id: e.id, title: e.title, body: e.body});
     setDialogueChanged(false);
     setDialogueOpen(true);
+    setSaveSuccess(false);
+    setDialogueEdit(false);
   }
 
   const handleSave = async () => {
-    console.log('changed');
     const result = await server.patch('/writes/' + dialogue.id, {title: dialogue_title_ref.current.value, content: dialogue_body_ref.current.value});
     fetchWrites();
-    handleDiscard();
+    setDialogueChanged(false);
+    setSaveSuccess(true);
   }
 
   const handleDiscard = () => {
@@ -129,6 +130,16 @@ export default function WritingHome(props){
     setDialogue({title: '', body: ''});
     setDialogueChanged(false);
     setDialogueEdit(false);
+  }
+
+  const handleClose = () => {
+    if(dialogue_changed) {
+      handleSave();
+      setDialogueChanged(false);
+      setSaveSuccess(true);
+    }
+    fetchWrites();
+    setDialogueOpen(false);
   }
 
   const handleEdit = () => {
@@ -139,6 +150,7 @@ export default function WritingHome(props){
       setDialogue(temp_dialogue);
     }
     setDialogueEdit(!dialogue_edit);
+    setAlertOpen(false);
   }
 
   const handleDelete = async () => {
@@ -150,7 +162,8 @@ export default function WritingHome(props){
 
   const handleClickNew = () => {
     setNewDialogueOpen(true);
-    setBackdropOpen(false)
+    setBackdropOpen(false);
+    setSaveSuccess(false);
   }
 
   const handleNewDiscard = () => {
@@ -176,7 +189,7 @@ export default function WritingHome(props){
     }
   }
 
-  const handleClose = () => {
+  const handleNewClose = () => {
     if(dialogue_changed && dialogue_body_ref.current.value.length > 0) {
       setConfirmAlert(true);
       setAlertOpen(true);
@@ -280,20 +293,30 @@ export default function WritingHome(props){
             : <Typography sx={{whiteSpace: 'pre-wrap'}}> {dialogue.body} </Typography>}
           </DialogContent>
           <DialogActions>
-            {dialogue.id ?
+            <div style={{position: 'absolute', left:'0%'}}>
+              <Button onClick={handleSave} disabled={!dialogue_changed}>
+                Save
+              </Button>
+              {dialogue_edit ?
+                <Button autoFocus onClick={handleEdit}>
+                View
+                </Button>
+              :
+                <Button autoFocus onClick={handleEdit}>
+                Edit
+                </Button>
+              }
+            </div>
+            <Button onClick={handleDiscard}>
+              Discard
+            </Button>
             <Button sx={{color: '#d62828'}} onClick={handleDelete}>
               Delete
-            </Button> : null}
-            {dialogue_edit ?
-              <Button autoFocus onClick={handleEdit}>
-              View
-              </Button>
-            :
-              <Button autoFocus onClick={handleEdit}>
-              Edit
-              </Button>
-            }
+            </Button>
           </DialogActions>
+          <Collapse in={alert_open}>
+            <StatusAlert/>
+          </Collapse>
         </Dialog>
         <Dialog
           open={new_dialogue_open}
@@ -303,7 +326,7 @@ export default function WritingHome(props){
             <TextField onChange={textOnChange} inputRef={dialogue_title_ref} id="dialogue_title" label="Title" variant="standard" fullWidth />
             <IconButton
               aria-label="close"
-              onClick={handleClose}
+              onClick={handleNewClose}
               sx={{
                 position: 'absolute',
                 right: 8,
