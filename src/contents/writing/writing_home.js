@@ -127,9 +127,7 @@ export default function WritingHome(props){
 
   const handleDiscard = () => {
     setDialogueOpen(false);
-    setDialogue({title: '', body: ''});
     setDialogueChanged(false);
-    setDialogueEdit(false);
   }
 
   const handleClose = () => {
@@ -275,7 +273,7 @@ export default function WritingHome(props){
           <DialogTitle>
             {dialogue_edit?
               <TextField defaultValue={dialogue.title} onChange={textOnChange} inputRef={dialogue_title_ref} id="dialogue_title" label="Title" variant="standard" fullWidth />
-              :<Typography> {dialogue.title} </Typography>}
+              :<Typography variant='h3'> {dialogue.title} </Typography>}
             <IconButton
               aria-label="close"
               onClick={handleClose}
