@@ -4,8 +4,8 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import "@fontsource/oswald";
-import Home from './contents/home/home.js';
-import WritingHome from './contents/writing/writing_home.js';
+import Home from './components/home.js';
+import WritingHome from './components/writing/writing_home.js';
 
 export default function MenuTabHorizontal({props}) {
   const [content_choice, setContent_choice] = useState(<Home />)

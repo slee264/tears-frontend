@@ -69,8 +69,8 @@ export default function WritingHome(props){
     let card = null;
     if(add_card){
       card = (
-        <Card sx={{background: '#457b9d', color: '#fff', maxWidth: 345, height: 150, mx:2, mt: 2}}>
-          <CardActionArea onClick={handleClickNew}>
+        <Card data-testid="card-add-new" sx={{background: '#457b9d', color: '#fff', maxWidth: 345, height: 150, mx:2, mt: 2}}>
+          <CardActionArea data-testid="card-action-area-add-new" onClick={handleClickNew}>
               <Typography align='center' variant='h2' component="div" gutterBottom>
                 +
               </Typography>
@@ -250,7 +250,8 @@ export default function WritingHome(props){
     <div>
       <Backdrop sx={{ color: '#FFFFFF'}}
                 open={backdrop_open}
-                onClick={handleCloseBackdrop}>
+                onClick={handleCloseBackdrop}
+                data-testid="introductory-backdrop">
         <Typography align='center' variant="h5" component="div">
           Someone said one of the best ways to overcome tough times is to turn them into stories. <br/>
           Write your story. It could be a short story, poem, song, prayer, anything you want.
@@ -273,7 +274,7 @@ export default function WritingHome(props){
           <DialogTitle>
             {dialogue_edit?
               <TextField defaultValue={dialogue.title} onChange={textOnChange} inputRef={dialogue_title_ref} id="dialogue_title" label="Title" variant="standard" fullWidth />
-              :<Typography variant='h3'> {dialogue.title} </Typography>}
+              :<div> <Typography variant='h3'> {dialogue.title} </Typography></div>}
             <IconButton
               aria-label="close"
               onClick={handleClose}
@@ -321,7 +322,7 @@ export default function WritingHome(props){
           TransitionComponent={Transition}
           fullWidth>
           <DialogTitle>
-            <TextField onChange={textOnChange} inputRef={dialogue_title_ref} id="dialogue_title" label="Title" variant="standard" fullWidth />
+            <TextField data-testid="new-title-textfield" onChange={textOnChange} inputRef={dialogue_title_ref} id="dialogue_title" label="Title" variant="standard" fullWidth />
             <IconButton
               aria-label="close"
               onClick={handleNewClose}
@@ -334,7 +335,7 @@ export default function WritingHome(props){
             </IconButton>
           </DialogTitle>
           <DialogContent>
-            <TextField onChange={textOnChange} inputRef={dialogue_body_ref} id="dialogue_body" placeholder="Write here!" multiline rows={20} fullWidth />
+            <TextField data-testid="new-body-textfield" onChange={textOnChange} inputRef={dialogue_body_ref} id="dialogue_body" placeholder="Write here!" multiline rows={20} fullWidth />
           </DialogContent>
           <DialogActions>
             <div style={{flex: '1 0 0'}}>
