@@ -322,7 +322,7 @@ export default function WritingHome(props){
           TransitionComponent={Transition}
           fullWidth>
           <DialogTitle>
-            <TextField data-testid="new-title-textfield" onChange={textOnChange} inputRef={dialogue_title_ref} id="dialogue_title" label="Title" variant="standard" fullWidth />
+            <TextField data-testid="new-title-textfield" defaultValue={''} onChange={textOnChange} inputRef={dialogue_title_ref} id="dialogue_title" label="Title" variant="standard" fullWidth />
             <IconButton
               aria-label="close"
               onClick={handleNewClose}
@@ -335,7 +335,7 @@ export default function WritingHome(props){
             </IconButton>
           </DialogTitle>
           <DialogContent>
-            <TextField data-testid="new-body-textfield" onChange={textOnChange} inputRef={dialogue_body_ref} id="dialogue_body" placeholder="Write here!" multiline rows={20} fullWidth />
+            <TextField data-testid="new-body-textfield" defaultValue={''} onChange={textOnChange} inputRef={dialogue_body_ref} id="dialogue_body" placeholder="Write here!" multiline rows={20} fullWidth />
           </DialogContent>
           <DialogActions>
             <div style={{flex: '1 0 0'}}>
