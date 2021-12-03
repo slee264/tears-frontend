@@ -6,6 +6,7 @@ import {createTheme, ThemeProvider} from '@mui/material/styles';
 import "@fontsource/oswald";
 import Home from './components/home.js';
 import WritingHome from './components/writing/writing_home.js';
+import TalkingHome from './components/talking/talking_home.js';
 
 export default function MenuTabHorizontal({props}) {
   const [content_choice, setContent_choice] = useState(<Home />)
@@ -31,7 +32,7 @@ export default function MenuTabHorizontal({props}) {
   const handleButton = (content_choice) => {
     switch(content_choice) {
       case 'talking':
-        // setContent_choice(<TalkingHome />);
+        setContent_choice(<TalkingHome />);
         break;
       case 'exercising':
         // setContent_choice(<ExercisingHome />);

@@ -26,7 +26,9 @@ import Slide from '@mui/material/Slide';
 import Snackbar from '@mui/material/Snackbar';
 
 import { server } from '../../axios';
+import "@fontsource/merriweather"
 import "@fontsource/roboto"
+import "@fontsource/roboto-condensed"
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -43,6 +45,7 @@ export default function WritingHome(props){
   const [new_dialogue_open, setNewDialogueOpen] = React.useState(false);
   const [alert_open, setAlertOpen] = React.useState(false);
   const [confirm_alert, setConfirmAlert] = React.useState(false);
+  const [delete_confirm_modal, setDeleteConfirmModal] = React.useState(false);
   const [save_success, setSaveSuccess] = React.useState(false);
 
   const [dialogue_changed, setDialogueChanged] = React.useState(false);
@@ -86,7 +89,7 @@ export default function WritingHome(props){
       card = (
         <Card sx={{maxWidth: 345, height: 150, mx: 2, mt:2}}>
           <CardActionArea onClick={() => handleClickWrite(e)}>
-              <Typography align='center' variant='h2' component="div" gutterBottom>
+              <Typography fontFamily='Merriweather' align='center' variant='h2' component="div" gutterBottom>
                 {e.title}
               </Typography>
             <CardContent align='center'>
@@ -119,7 +122,16 @@ export default function WritingHome(props){
   }
 
   const handleSave = async () => {
-    const result = await server.patch('/writes/' + dialogue.id, {title: dialogue_title_ref.current.value, content: dialogue_body_ref.current.value});
+    let title;
+    let body;
+    if(dialogue_edit) {
+      title = dialogue_title_ref.current.value;
+      body = dialogue_body_ref.current.value;
+    }else {
+      title = dialogue.title;
+      body = dialogue.body;
+    }
+    const result = await server.patch('/writes/' + dialogue.id, {title: title, content: body});
     fetchWrites();
     setDialogueChanged(false);
     setSaveSuccess(true);
@@ -152,10 +164,10 @@ export default function WritingHome(props){
   }
 
   const handleDelete = async () => {
-    const result = await server.delete('/writes/' + dialogue.id);
-    if(result) fetchWrites();
-
-    setDialogueOpen(false);
+    setDeleteConfirmModal(true);
+    // const result = await server.delete('/writes/' + dialogue.id);
+    // if(result) fetchWrites();
+    // setDialogueOpen(false);
   }
 
   const handleClickNew = () => {
@@ -172,7 +184,7 @@ export default function WritingHome(props){
   const handleNewSave = async () => {
     const title = dialogue_title_ref.current.value;
     const body = dialogue_body_ref.current.value;
-    if(body.length == 0){
+    if(body.length === 0){
       console.log("body empty!!");
       setConfirmAlert(false);
       setAlertOpen(true);
@@ -240,6 +252,18 @@ export default function WritingHome(props){
     }
   }
 
+  const delete_confirm_box_style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  boxShadow: 24,
+  p: 4,
+  textAlign: 'center'
+};
+
   const theme = createTheme({
     typography:{
       fontFamily: 'roboto',
@@ -274,7 +298,7 @@ export default function WritingHome(props){
           <DialogTitle>
             {dialogue_edit?
               <TextField defaultValue={dialogue.title} onChange={textOnChange} inputRef={dialogue_title_ref} id="dialogue_title" label="Title" variant="standard" fullWidth />
-              :<div> <Typography variant='h3'> {dialogue.title} </Typography></div>}
+              :<div> <Typography variant='h3' fontFamily='Merriweather'> {dialogue.title} </Typography></div>}
             <IconButton
               aria-label="close"
               onClick={handleClose}
@@ -351,11 +375,22 @@ export default function WritingHome(props){
             <StatusAlert/>
           </Collapse>
         </Dialog>
-        <Snackbar anchorOrigin={{vertical: 'bottom', horizontal: 'center'}} open={save_success} autoHideDuration={6000} onClose={() => setSaveSuccess(false)}>
-          <Alert onClose={() => setSaveSuccess(false)} severity='success' sx={{ width: '100%'}}>
+        <Snackbar anchorOrigin={{vertical: 'bottom', horizontal: 'center'}} open={save_success} autoHideDuration={4000} onClose={() => setSaveSuccess(false)}>
+          <Alert onClose={() => setSaveSuccess(false)} variant='filled' severity='success' sx={{ width: '100%'}}>
             Saved! Well done!
           </Alert>
         </Snackbar>
+        <Modal
+          open={delete_confirm_modal}
+          onClose={() => setDeleteConfirmModal(false)}
+        >
+          <Box sx={delete_confirm_box_style}>
+            <Typography fontFamily='Roboto Condensed' variant='h6'>
+              Are you SURE you want to delete?<br/>
+              There's no coming back!
+            </Typography>
+          </Box>
+        </Modal>
       </ThemeProvider>
     </div>
   )
