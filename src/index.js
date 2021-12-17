@@ -22,9 +22,11 @@ import "@fontsource/mohave";
 
 import store from './store';
 import { Provider, useSelector, useDispatch } from 'react-redux';
+import { signInModal, signUpModal } from './features/user/susiSlice';
 
 import MenuTabHorizontal from './menu-tab-horizontal';
 import About from './about';
+import SignInModal from './signin';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -32,8 +34,9 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 function Index(props) {
   const loggedIn = useSelector((state) => state.user.loggedIn);
+  const susiOperation = useSelector((state) => state.susi.operation);
 
-  const [signin_dialog_open, setDialogOpen] = React.useState(false);
+  const dispatch = useDispatch();
 
   return(
     <div>
@@ -60,7 +63,7 @@ function Index(props) {
                         About
                       </Typography>
                     </Button>
-                    <Button href='/signin'>
+                    <Button onClick={() => dispatch(signInModal())}>
                       <Typography sx={{fontFamily: 'mohave', color: 'black'}} variant="h5" component="div">
                         Sign In
                       </Typography>
@@ -75,26 +78,10 @@ function Index(props) {
         </Box>
         <Routes>
           <Route path="/about" element={<About />} />
+          <Route path="/signin" element={<SignInModal />} />
         </Routes>
+        {susiOperation == 'signin' ? <SignInModal /> : null}
       </Router>
-      <Dialog
-        open={signin_dialog_open}
-        TransitionComponent={Transition}
-        fullWidth>
-        <DialogTitle>
-          <IconButton aria-label='close' onClick={() => setDialogOpen(false)}>
-            <CloseIcon />
-          </IconButton>
-          <Typography sx={{fontFamily: 'mohave', color: 'black'}} variant="h5" component="div">
-            Welcome back.
-          </Typography>
-        </DialogTitle>
-        <DialogContent sx={{textAlign:'center'}}>
-          <Button sx={{border: 'solid', borderWidth: 1, borderRadius: 5}}>
-            <MailOutlineIcon /> sign in with email
-          </Button>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 }
