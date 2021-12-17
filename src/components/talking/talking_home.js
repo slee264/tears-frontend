@@ -5,8 +5,8 @@ export default function TalkingHome(props){
 
   socket.emit('message', { data: 'this is a message from client'})
 
-  socket.on('message', ({ data }) => {
-    console.log('message received by the client');
+  socket.on('message', (data) => {
+    console.log(data);
   })
 
   return(

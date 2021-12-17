@@ -26,9 +26,6 @@ export default function MenuTabHorizontal({props}) {
     },
   });
 
-  const button_variant = "contained";
-  const button_size = "large";
-
   const handleButton = (content_choice) => {
     switch(content_choice) {
       case 'talking':
@@ -45,6 +42,9 @@ export default function MenuTabHorizontal({props}) {
         break;
     }
   }
+
+  const button_variant = "contained";
+  const button_size = "large";
 
   return(
     <div>
