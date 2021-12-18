@@ -28,6 +28,8 @@ import MenuTabHorizontal from './menu-tab-horizontal';
 import About from './about';
 import SignInModal from './signin';
 
+import './style/index.css';
+
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -41,14 +43,14 @@ function Index(props) {
   return(
     <div>
       <Router>
-        <nav style={{backgroundColor: '#ffffff', boxShadow: "0 4px 12px 0 rgb(0 0 0 / 30%)", zIndex: 500, position: 'absolute', right: 0, left: 0, top: 0, display: 'block', boxSizing: 'inherit'}}>
-          <Box sx={{ justifyContent: 'center', display: 'flex', boxSizing: 'inherit'}}>
+        <nav class="b c" style={{backgroundColor: '#ffffff', boxShadow: "0 4px 12px 0 rgb(0 0 0 / 30%)", zIndex: 500, position: 'absolute', right: 0, left: 0, top: 0}}>
+          <Box className="a c e">
             <Box sx={{margin: "0 64px"}}>
-              <Box sx={{ alignItems: 'center', display: 'flex', boxSizing: 'inherit', height: 65}}>
-                <Box sx={{zIndex: 500, flex: "1 0 auto", display: 'block', boxSizing: 'inherit'}}>
-                  <Box sx={{alignItems: 'center', display: 'flex', boxSizing: 'inherit'}}>
+              <Box className="a c d" sx={{ height: 65}}>
+                <Box className="b c" sx={{zIndex: 500, flex: "1 0 auto"}}>
+                  <Box className="a c d">
                     <Button href='/'>
-                      <Box sx={{borderRight: 'none', paddingRight: 0, display: 'block'}}>
+                      <Box className="b" sx={{borderRight: 'none', paddingRight: 0}}>
                         <Typography sx={{fontFamily: 'mohave', color: 'black'}} variant="h2" component="div">
                           TEARs
                         </Typography>
@@ -56,8 +58,8 @@ function Index(props) {
                     </Button>
                   </Box>
                 </Box>
-                <Box sx={{flex: "0 0 auto", zIndex: 500, display: 'block', boxSizing: 'inherit'}}>
-                  <Box sx={{justifyContent: 'flex-end', alignItems: 'center', display: 'flex', boxSizing: 'inherit'}}>
+                <Box className="b c" sx={{flex: "0 0 auto", zIndex: 500}}>
+                  <Box className="a c d e">
                     <Button href='/about'>
                       <Typography sx={{fontFamily: 'mohave', color: 'black'}} variant="h5" component="div">
                         About
@@ -74,7 +76,7 @@ function Index(props) {
             </Box>
           </Box>
         </nav>
-        <Box sx={{marginTop: 0, marginBottom: 0, display: 'block', height: '65px', boxSizing: 'inherit'}}>
+        <Box className="b c" sx={{marginTop: 0, marginBottom: 0, height: '65px'}}>
         </Box>
         <Routes>
           <Route path="/about" element={<About />} />

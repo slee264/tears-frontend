@@ -1,0 +1,50 @@
+.a {
+  display: flex;
+}
+
+.b {
+  display: block;
+}
+
+.c {
+  box-sizing: inherit;
+}
+
+.d {
+  align-items: center;
+}
+
+.e {
+  justify-content: center;
+}
+
+.f {
+  right: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.g {
+  width: 100%;
+}
+
+.h {
+  height: 100%;
+}
+
+.i {
+  text-align: center;
+}
+
+.j {
+  flex-direction: column;
+}
+
+.k {
+  visibility: visible;
+}
+
+.l {
+  font-family: 'mohave';
+}
