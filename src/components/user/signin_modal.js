@@ -20,6 +20,7 @@ import '../../style/index.css';
 export default function SignInModal() {
   const susiModalStep = useSelector((state) => state.susiModal.step);
   const susiModalOperation = useSelector((state) => state.susiModal.operation);
+  console.log(susiModalStep);
   const dispatch = useDispatch();
 
   const renderOperation = () => {
@@ -42,7 +43,7 @@ export default function SignInModal() {
 
   return(
     <div>
-      <Modal open={susiModalStep == 'SIGNIN_OPTIONS'}>
+      <Modal open={susiModalStep}>
         {renderOperation()}
       </Modal>
     </div>

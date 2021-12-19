@@ -20,9 +20,6 @@
 
 .f {
   right: 0;
-  left: 0;
-  top: 0;
-  bottom: 0;
 }
 
 .g {
@@ -51,4 +48,16 @@
 
 .m {
   position: absolute;
+}
+
+.n {
+  left: 0;
+}
+
+.o {
+  top: 0;
+}
+
+.p {
+  bottom: 0;
 }

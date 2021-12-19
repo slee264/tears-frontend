@@ -9,17 +9,20 @@ import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import { useSelector, useDispatch } from 'react-redux';
 import { registerModal, wipeModal } from '../../features/user/susiSlice';
 
+import '../../style/index.css';
+
+
 export default function SignInTemplate(){
   const dispatch = useDispatch();
 
   return(
     <div>
-      <Box role="dialog" className="e d c a f" sx={{role: 'dialog', zIndex: 800, position: 'fixed', overflowX: 'hidden', overflowY: 'auto'}}>
-        <Box className="b" sx={{marginTop :'auto', marginBottom: 'auto', padding: 0, transformOrigin: 'center bottom'}}>
+      <Box className="e d c a f n o p" sx={{role: 'dialog', zIndex: 800, position: 'fixed', overflowX: 'hidden', overflowY: 'auto'}}>
+        <Box className="b" sx={{marginTop :'auto', marginBottom: 'auto', padding: '0px', transformOrigin: 'center bottom'}}>
           <Box className="b c" sx={{background: 'rgb(255, 255, 255)', position: 'relative', width: '678px'}}>
             <Box className="b c k">
               <Box className="a g h" sx={{background: 'white', justifyContent: 'space-between', flexDirection: 'row', minHeight: '695px'}}>
-                <Box className="e d a c i j" sx={{flex: "1 0 auto", width: 360, padding: '44px 56px'}}>
+                <Box className="e d a c i j" sx={{flex: "1 0 auto", width: '360px', padding: '44px 56px'}}>
                   <Box className="c b i k">
                     <Typography sx={{fontFamily: 'mohave', color: 'black'}} variant="h5" component="div">
                       Welcome back.

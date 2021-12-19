@@ -77,7 +77,7 @@ function Index(props) {
           <Route path="/about" element={<About />} />
           <Route path="/signin" element={<SignInModal />} />
         </Routes>
-        {susiModalStep == 'SIGNIN_OPTIONS' ? <SignInModal /> : null}
+        {susiModalStep ? <SignInModal /> : null}
       </Router>
     </div>
   );
