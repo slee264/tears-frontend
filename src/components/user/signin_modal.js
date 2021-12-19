@@ -15,28 +15,26 @@ import { registerModal, wipeModal } from '../../features/user/susiSlice';
 import SignUpTemplate from './signup';
 import SignInTemplate from './signin';
 import EnterEmailTemplate from './enter_email';
+import SignInModalTemplate from './signin_modal_template';
 import '../../style/index.css';
 
 export default function SignInModal() {
   const susiModalStep = useSelector((state) => state.susiModal.step);
   const susiModalOperation = useSelector((state) => state.susiModal.operation);
-  console.log(susiModalStep);
   const dispatch = useDispatch();
 
   const renderOperation = () => {
     switch(true) {
       case (susiModalStep == 'SIGNIN_OPTIONS') && (susiModalOperation == 'login'):{
-        return(<SignInTemplate />);
+        return(<SignInModalTemplate operationTemplate=<SignInTemplate /> />);
       }
 
       case (susiModalStep == 'SIGNIN_OPTIONS') && (susiModalOperation == 'register'):{
-        return(<SignUpTemplate />);
+        return(<SignInModalTemplate operationTemplate=<SignUpTemplate /> />);
       }
 
       case (susiModalStep == 'ENTER_EMAIL'):{
-        return(
-          <EnterEmailTemplate />
-        )
+        return(<SignInModalTemplate operationTemplate=<EnterEmailTemplate /> />);
       }
     }
   }

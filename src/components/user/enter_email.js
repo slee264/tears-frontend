@@ -24,7 +24,7 @@ export default function EnterEmailTemplate() {
           <Box className="b c" sx={{background: 'rgb(255, 255, 255)', position: 'relative', width: '678px'}}>
             <Box className="b c k">
               <Box className="a g h" sx={{background: 'white', justifyContent: 'space-between', flexDirection: 'row', minHeight: '695px'}}>
-                <Box className="e d a c i j" sx={{flex: "1 0 auto", width: 360, padding: '44px 56px'}}>
+                <Box className="e d a c i j" sx={{flex: "1 0 auto", width: '360px', padding: '44px 56px'}}>
                   <Box className="c b i k">
                     <Typography sx={{fontFamily: 'mohave', color: 'black'}} variant="h5" component="div">
                       Sign up with email
@@ -60,11 +60,11 @@ export default function EnterEmailTemplate() {
                         </Button>
                       </Box>
                       <Box className='b c i k' sx={{paddingRight: '12px', marginBottom: '28px', marginTop: '12px'}}>
-                      <Button>
-                        <Typography sx={{fontFamily: 'mohave', fontSize: 18}}>
-                          <ArrowBackIcon /> All sign up optons
-                        </Typography>
-                      </Button>
+                        <Button>
+                          <Typography sx={{fontFamily: 'mohave', fontSize: 18}}>
+                            <ArrowBackIcon /> All sign up optons
+                          </Typography>
+                        </Button>
                       </Box>
                     </Box>
                   </Box>
