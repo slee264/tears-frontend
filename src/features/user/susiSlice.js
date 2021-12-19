@@ -1,24 +1,30 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export const susiSlice = createSlice({
-  name: 'susi',
+export const susiModalSlice = createSlice({
+  name: 'susiModal',
   initialState: {
+    step: null,
     operation: null,
   },
 
   reducers: {
-    signInModal: (state) => {
-      state.operation = 'signin'
+    logInModal: (state) => {
+      state.step = 'SIGNIN_OPTIONS';
+      state.operation = 'login';
     },
-    signUpModal: (state) => {
-      state.operation = 'signup'
+    registerModal: (state) => {
+      state.operation = 'register'
+    },
+    enterEmailModal: (state) =>{
+      state.step = 'ENTER_EMAIL';
     },
     wipeModal: (state) => {
+      state.step = null;
       state.operation = null;
     }
   },
 })
 
-export const { signInModal, signOutModal, wipeModal } = susiSlice.actions
+export const { logInModal, registerModal, enterEmailModal, wipeModal } = susiModalSlice.actions
 
-export default susiSlice.reducer
+export default susiModalSlice.reducer

@@ -16,27 +16,22 @@ import DialogActions from '@mui/material/DialogActions';
 import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
-import Slide from '@mui/material/Slide';
 import Typography from '@mui/material/Typography';
 import "@fontsource/mohave";
 
 import store from './store';
 import { Provider, useSelector, useDispatch } from 'react-redux';
-import { signInModal, signUpModal } from './features/user/susiSlice';
+import { logInModal, registerModal } from './features/user/susiSlice';
 
 import MenuTabHorizontal from './menu-tab-horizontal';
 import About from './about';
-import SignInModal from './signin';
+import SignInModal from './components/user/signin_modal';
 
 import './style/index.css';
 
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
-
 function Index(props) {
   const loggedIn = useSelector((state) => state.user.loggedIn);
-  const susiOperation = useSelector((state) => state.susi.operation);
+  const susiModalStep = useSelector((state) => state.susiModal.step);
 
   const dispatch = useDispatch();
 
@@ -65,7 +60,7 @@ function Index(props) {
                         About
                       </Typography>
                     </Button>
-                    <Button onClick={() => dispatch(signInModal())}>
+                    <Button onClick={() => dispatch(logInModal())}>
                       <Typography sx={{fontFamily: 'mohave', color: 'black'}} variant="h5" component="div">
                         Sign In
                       </Typography>
@@ -82,7 +77,7 @@ function Index(props) {
           <Route path="/about" element={<About />} />
           <Route path="/signin" element={<SignInModal />} />
         </Routes>
-        {susiOperation == 'signin' ? <SignInModal /> : null}
+        {susiModalStep == 'SIGNIN_OPTIONS' ? <SignInModal /> : null}
       </Router>
     </div>
   );
