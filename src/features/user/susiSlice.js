@@ -13,7 +13,8 @@ export const susiModalSlice = createSlice({
       state.operation = 'login';
     },
     registerModal: (state) => {
-      state.operation = 'register'
+      state.step = 'SIGNIN_OPTIONS';
+      state.operation = 'register';
     },
     enterEmailModal: (state) =>{
       state.step = 'ENTER_EMAIL';

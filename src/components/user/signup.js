@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 
 import { useDispatch } from 'react-redux';
-import { enterEmailModal } from '../../features/user/susiSlice';
+import { enterEmailModal, logInModal } from '../../features/user/susiSlice';
 
 export default function SignUpTemplate() {
   const dispatch = useDispatch();
@@ -35,7 +35,7 @@ export default function SignUpTemplate() {
           <Box className="b c k i" sx={{marginBottom:'58px'}}>
             <Typography sx={{fontFamily: 'mohave', fontSize: 18}}>
               Already have an account?
-              <Button>
+              <Button onClick={() => dispatch(logInModal())}>
                 <Typography sx={{fontFamily: 'mohave', fontSize: 18}}>
                 Sign in
                 </Typography>

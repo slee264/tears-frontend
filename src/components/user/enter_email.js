@@ -7,21 +7,23 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import TextField from '@mui/material/TextField';
 
 import { useDispatch } from 'react-redux';
-import { wipeModal} from '../../features/user/susiSlice';
+import { registerModal }  from '../../features/user/susiSlice';
 
+import { server } from '../../axios';
 
 export default function EnterEmailTemplate() {
+  const dispatch = useDispatch();
   const [valid_email, setValidEmail] = useState(null);
   const email_ref = useRef();
 
-  const handleContinue = () => {
+  const handleContinue = async () => {
     let email = email_ref.current.value;
     let emailRegExp = /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i;
 
     let valid = emailRegExp.test(email);
-    
-    if(valid){
 
+    if(valid){
+      const result = await server.post();
     }else{
       setValidEmail('invalid');
     }
@@ -72,7 +74,7 @@ export default function EnterEmailTemplate() {
             </Button>
           </Box>
           <Box className='b c i k' sx={{paddingRight: '12px', marginBottom: '28px', marginTop: '12px'}}>
-            <Button>
+            <Button onClick={() => {dispatch(registerModal())}}>
               <Typography sx={{fontFamily: 'mohave', fontSize: 18}}>
                 <ArrowBackIcon /> All sign up optons
               </Typography>
