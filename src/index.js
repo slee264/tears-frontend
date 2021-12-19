@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import {
   BrowserRouter as Router,
@@ -7,23 +7,13 @@ import {
 } from "react-router-dom";
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import CloseIcon from '@mui/icons-material/Close';
-import Container from '@mui/material/Container';
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
-import Grid from '@mui/material/Grid';
-import IconButton from '@mui/material/IconButton';
-import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import Typography from '@mui/material/Typography';
 import "@fontsource/mohave";
 
 import store from './store';
 import { Provider, useSelector, useDispatch } from 'react-redux';
-import { logInModal, registerModal } from './features/user/susiSlice';
+import { logInModal } from './features/user/susiSlice';
 
-import MenuTabHorizontal from './menu-tab-horizontal';
 import About from './about';
 import SignInModal from './components/user/signin_modal';
 

@@ -1,22 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import Box from '@mui/material/Box';
-import MailOutlineIcon from '@mui/icons-material/MailOutline';
-import Modal from '@mui/material/Modal';
-import Slide from '@mui/material/Slide';
 import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
-import CloseIcon from '@mui/icons-material/Close';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import TextField from '@mui/material/TextField';
 
-import { useDispatch } from 'react-redux';
-import { wipeModal} from '../../features/user/susiSlice';
-
 export default function EnterEmailTemplate() {
 
-  const dispatch = useDispatch();
   return(
     <div>
       <Box className="c b i k">

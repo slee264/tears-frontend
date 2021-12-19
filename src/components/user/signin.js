@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
-import CloseIcon from '@mui/icons-material/Close';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 
-import { useSelector, useDispatch } from 'react-redux';
-import { registerModal, wipeModal } from '../../features/user/susiSlice';
+import { useDispatch } from 'react-redux';
+import { registerModal } from '../../features/user/susiSlice';
 
 import '../../style/index.css';
 
