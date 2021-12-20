@@ -15,7 +15,7 @@ import { Provider, useSelector, useDispatch } from 'react-redux';
 import { logInModal } from './features/user/susiSlice';
 
 import About from './about';
-import SignInModal from './components/user/signin_modal';
+import SignInModal from './components/user/account/signin_modal';
 
 import './style/index.css';
 

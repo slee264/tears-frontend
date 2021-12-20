@@ -7,11 +7,11 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import TextField from '@mui/material/TextField';
 
 import { useDispatch } from 'react-redux';
-import { registerModal, enterPasswordModal }  from '../../features/user/susiSlice';
+import { registerModal, enterPasswordModal }  from '../../../../features/user/susiSlice';
 
-import { server } from '../../axios';
+import { server } from '../../../../axios';
 
-export default function EnterEmailTemplate() {
+export default function EnterEmailForm() {
   const dispatch = useDispatch();
   const [valid_email, setValidEmail] = useState(null);
   const [helper_text, setHelperText] = useState('');
@@ -56,14 +56,9 @@ export default function EnterEmailTemplate() {
             <Box className="c b i k">
               <Box className="i j d a c k" sx={{paddingBottom:'1px', width: '270px'}}>
                 <Box className="b c i k" sx={{alignSelf: 'normal', flex:'0 0 auto', marginBottom:'12px'}}>
-                  {valid_email === 'invalid' ?
-                  <Typography sx={{fontFamily: 'mohave', color: 'red', fontSize: '13px', lineHeight: '20px'}} component="p">
+                  <Typography sx={{fontFamily: 'mohave', color: (valid_email === 'invalid' ? 'red' : 'black'), fontSize: '13px', lineHeight: '20px'}} component="p">
                     Enter your email here
                   </Typography>
-                  :
-                  <Typography sx={{fontFamily: 'mohave', color: 'black', fontSize: '13px', lineHeight: '20px'}} component="p">
-                    Enter your email here
-                  </Typography>}
                 </Box>
                 <Box className='c b i k' sx={{position: 'relative'}}>
                   {valid_email === 'invalid' ?

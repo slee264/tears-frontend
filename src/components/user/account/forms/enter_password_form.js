@@ -7,11 +7,11 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import TextField from '@mui/material/TextField';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { enterEmailModal, enterNameModal } from '../../features/user/susiSlice';
+import { enterEmailModal, enterNameModal } from '../../../../features/user/susiSlice';
 
-import { server } from '../../axios';
+import { server } from '../../../../axios';
 
-export default function EnterPasswordTemplate() {
+export default function EnterPasswordForm() {
   const valid_email = useSelector((state) => state.susiModal.valid_email);
   const dispatch = useDispatch();
   const [valid_password, setValidPassword] = useState(null);
@@ -52,14 +52,9 @@ export default function EnterPasswordTemplate() {
             <Box className="c b i k">
               <Box className="i j d a c k" sx={{paddingBottom:'1px', width: '270px'}}>
                 <Box className="b c i k" sx={{alignSelf: 'normal', flex:'0 0 auto', marginBottom:'12px'}}>
-                  {valid_password === 'invalid' ?
-                  <Typography sx={{fontFamily: 'mohave', color: 'red', fontSize: '13px', lineHeight: '20px'}} variant="h5" component="p">
+                  <Typography sx={{fontFamily: 'mohave', color: (valid_password === 'invalid' ? 'red' : 'black'), fontSize: '13px', lineHeight: '20px'}} variant="h5" component="p">
                     Enter your password here
                   </Typography>
-                  :
-                  <Typography sx={{fontFamily: 'mohave', color: 'black', fontSize: '13px', lineHeight: '20px'}} variant="h5" component="p">
-                    Enter your password here
-                  </Typography>}
                 </Box>
                 <Box className='c b i k' sx={{position: 'relative'}}>
                   {valid_password === 'invalid' ?
