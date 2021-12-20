@@ -4,7 +4,10 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { enterEmailModal, enterNameModal } from '../../../../features/user/susiSlice';
@@ -15,6 +18,7 @@ export default function EnterPasswordForm() {
   const valid_email = useSelector((state) => state.susiModal.valid_email);
   const dispatch = useDispatch();
   const [valid_password, setValidPassword] = useState(null);
+  const [show_password, setShowPassword] = useState(false);
   const password_ref = useRef();
 
   const handleContinue = async () => {
@@ -31,6 +35,10 @@ export default function EnterPasswordForm() {
     }else {
       setValidPassword('invalid');
     }
+  }
+
+  const handleShowPassword = () => {
+    setShowPassword(!show_password);
   }
 
   return(
@@ -58,8 +66,13 @@ export default function EnterPasswordForm() {
                 </Box>
                 <Box className='c b i k' sx={{position: 'relative'}}>
                   {valid_password === 'invalid' ?
-                  <TextField inputRef={password_ref} error FormHelperTextProps={{style: {textAlign: 'center'}}} inputProps={{style: {textAlign: 'center'}}} id="standard-error-helper-text" variant="standard" helperText="Please enter a valid password."/>
-                  : <TextField  inputRef={password_ref} inputProps={{style: {textAlign: 'center'}}} id="standard-basic" variant="standard" />}
+                  <TextField type={show_password ? 'text' : 'password'} inputRef={password_ref} error FormHelperTextProps={{style: {textAlign: 'center'}}} inputProps={{style: {textAlign: 'center'}}} id="standard-error-helper-text" variant="standard" helperText="Please enter a valid password."/>
+                  : <TextField  type={show_password ? 'text' : 'password'}  inputRef={password_ref} inputProps={{style: {textAlign: 'center'}}} id="standard-basic" variant="standard" />}
+                </Box>
+                <Box className='c b i k'>
+                  <IconButton aria-label='toggle password visibility' onClick={handleShowPassword}>
+                        {show_password ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
                 </Box>
               </Box>
             </Box>
