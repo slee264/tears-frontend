@@ -16,7 +16,7 @@ export default function SignInTemplate(){
   return(
     <div>
       <Box className="c b i k">
-        <Typography sx={{fontFamily: 'mohave', color: 'black'}} variant="h5" component="div">
+        <Typography sx={{fontFamily: 'mohave', color: 'black'}} variant="h4" component="div">
           Welcome back.
         </Typography>
       </Box>

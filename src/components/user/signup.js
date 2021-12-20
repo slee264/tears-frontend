@@ -13,7 +13,7 @@ export default function SignUpTemplate() {
   return(
     <div>
       <Box className="c b i k">
-        <Typography sx={{fontFamily: 'mohave', color: 'black'}} variant="h5" component="div">
+        <Typography sx={{fontFamily: 'mohave', color: 'black'}} variant="h4" component="div">
           Join TEARS.
         </Typography>
       </Box>

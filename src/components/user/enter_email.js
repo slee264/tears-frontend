@@ -7,13 +7,14 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import TextField from '@mui/material/TextField';
 
 import { useDispatch } from 'react-redux';
-import { registerModal }  from '../../features/user/susiSlice';
+import { registerModal, enterPasswordModal }  from '../../features/user/susiSlice';
 
 import { server } from '../../axios';
 
 export default function EnterEmailTemplate() {
   const dispatch = useDispatch();
   const [valid_email, setValidEmail] = useState(null);
+  const [helper_text, setHelperText] = useState('');
   const email_ref = useRef();
 
   const handleContinue = async () => {
@@ -23,17 +24,23 @@ export default function EnterEmailTemplate() {
     let valid = emailRegExp.test(email);
 
     if(valid){
-      const result = await server.post();
+      const userExists = await server.post('/account/confirm-email', {email: email});
+      if(userExists.data){
+        setValidEmail('invalid');
+        setHelperText('Your email is already registered.');
+      }else{
+        dispatch(enterPasswordModal({email: email}));
+      }
     }else{
       setValidEmail('invalid');
+      setHelperText('Please enter a valid email.');
     }
-
   }
 
   return(
     <div>
       <Box className="c b i k">
-        <Typography sx={{fontFamily: 'mohave', color: 'black'}} variant="h5" component="div">
+        <Typography sx={{fontFamily: 'mohave', color: 'black'}} variant="h4" component="div">
           Sign up with email
         </Typography>
       </Box>
@@ -60,7 +67,7 @@ export default function EnterEmailTemplate() {
                 </Box>
                 <Box className='c b i k' sx={{position: 'relative'}}>
                   {valid_email === 'invalid' ?
-                  <TextField inputRef={email_ref} error inputProps={{style: {textAlign: 'center'}}} id="standard-error-helper-text" variant="standard" placeholder="email@example.com" helperText="Please enter a valid email address."/>
+                  <TextField inputRef={email_ref} error FormHelperTextProps={{style: {textAlign: 'center'}}} inputProps={{style: {textAlign: 'center'}}} id="standard-error-helper-text" variant="standard" placeholder="email@example.com" helperText={helper_text}/>
                   : <TextField  inputRef={email_ref} inputProps={{style: {textAlign: 'center'}}} id="standard-basic" variant="standard" placeholder="email@example.com" />}
                 </Box>
               </Box>
