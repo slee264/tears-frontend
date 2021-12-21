@@ -12,6 +12,13 @@ export const susiModalSlice = createSlice({
       state.step = 'SIGNIN_OPTIONS';
       state.operation = 'login';
     },
+    enterEmailLogInModal: (state) => {
+      state.step = 'ENTER_EMAIL_LOGIN';
+    },
+    enterPasswordLogInModal: (state, action) =>{
+      state.step = 'ENTER_PASSWORD_LOGIN';
+      state.email = action.payload.email;
+    },
     registerModal: (state) => {
       state.step = 'SIGNIN_OPTIONS';
       state.operation = 'register';
@@ -40,6 +47,6 @@ export const susiModalSlice = createSlice({
   },
 })
 
-export const { logInModal, registerModal, enterEmailModal, enterPasswordModal, enterNameModal, signUpFinishModal, wipeModal } = susiModalSlice.actions
+export const { logInModal, enterEmailLogInModal, enterPasswordLogInModal, registerModal, enterEmailModal, enterPasswordModal, enterNameModal, signUpFinishModal, wipeModal } = susiModalSlice.actions
 
 export default susiModalSlice.reducer

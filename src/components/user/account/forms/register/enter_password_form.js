@@ -10,9 +10,9 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { enterEmailModal, enterNameModal } from '../../../../features/user/susiSlice';
+import { enterEmailModal, enterNameModal } from '../../../../../features/user/susiSlice';
 
-import { server } from '../../../../axios';
+import { server } from '../../../../../axios';
 
 export default function EnterPasswordForm() {
   const valid_email = useSelector((state) => state.susiModal.valid_email);

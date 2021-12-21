@@ -5,12 +5,16 @@ import Modal from '@mui/material/Modal';
 import { useSelector } from 'react-redux';
 
 import SignInModalTemplate from './forms/signin_modal_template';
-import SignUpForm from './forms/signup_form';
 import SignInForm from './forms/signin_form';
-import EnterEmailForm from './forms/enter_email_form';
-import EnterPasswordForm from './forms/enter_password_form';
-import EnterNameForm from './forms/enter_name_form';
-import SignUpCompleteForm from './forms/signup_complete_form';
+
+import SignUpForm from './forms/register/signup_form';
+import EnterEmailForm from './forms/register/enter_email_form';
+import EnterPasswordForm from './forms/register/enter_password_form';
+import EnterNameForm from './forms/register/enter_name_form';
+import SignUpCompleteForm from './forms/register/signup_complete_form';
+
+import EnterEmailLogInForm from './forms/log_in/enter_email_login_form';
+import EnterPasswordLogInForm from './forms/log_in/enter_password_login_form';
 import '../../../style/index.css';
 
 export default function SignInModal() {
@@ -19,11 +23,19 @@ export default function SignInModal() {
 
   const renderOperation = () => {
     switch(true) {
-      case (susiModalStep === 'SIGNIN_OPTIONS') && (susiModalOperation === 'login'):{
+      case (susiModalOperation === 'login') && (susiModalStep === 'SIGNIN_OPTIONS'):{
         return(<SignInModalTemplate operationTemplate=<SignInForm /> />);
       }
 
-      case (susiModalStep === 'SIGNIN_OPTIONS') && (susiModalOperation === 'register'):{
+      case (susiModalOperation === 'login') && (susiModalStep === 'ENTER_EMAIL_LOGIN'):{
+        return(<SignInModalTemplate operationTemplate=<EnterEmailLogInForm /> />);
+      }
+
+      case (susiModalOperation === 'login') && (susiModalStep === 'ENTER_PASSWORD_LOGIN'):{
+        return(<SignInModalTemplate operationTemplate=<EnterPasswordLogInForm /> />);
+      }
+
+      case (susiModalOperation === 'register') && (susiModalStep === 'SIGNIN_OPTIONS'):{
         return(<SignInModalTemplate operationTemplate=<SignUpForm /> />);
       }
 
@@ -42,6 +54,7 @@ export default function SignInModal() {
       case (susiModalStep === 'SIGNUP_COMPLETE'):{
         return(<SignInModalTemplate operationTemplate=<SignUpCompleteForm /> />);
       }
+
     }
   }
 

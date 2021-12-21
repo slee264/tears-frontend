@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffct } from 'react';
 import ReactDOM from 'react-dom';
 import {
   BrowserRouter as Router,
@@ -12,6 +12,7 @@ import "@fontsource/mohave";
 
 import store from './store';
 import { Provider, useSelector, useDispatch } from 'react-redux';
+import { CookiesProvider } from "react-cookie";
 import { logInModal } from './features/user/susiSlice';
 
 import About from './about';
@@ -50,9 +51,9 @@ function Index(props) {
                         About
                       </Typography>
                     </Button>
-                    <Button onClick={() => dispatch(logInModal())}>
+                    <Button onClick={loggedIn ? null : () => dispatch(logInModal())}>
                       <Typography sx={{fontFamily: 'mohave', color: 'black'}} variant="h5" component="div">
-                        Sign In
+                      {loggedIn ? 'Sign out' : 'Sign in'}
                       </Typography>
                     </Button>
                   </Box>
@@ -74,8 +75,10 @@ function Index(props) {
 }
 
 ReactDOM.render(
-  <Provider store={store}>
-    <Index />
-  </Provider>,
+  <CookiesProvider>
+    <Provider store={store}>
+      <Index />
+    </Provider>
+  </CookiesProvider>,
   document.getElementById('root')
 );

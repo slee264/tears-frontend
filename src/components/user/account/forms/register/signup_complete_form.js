@@ -5,16 +5,23 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { wipeModal, logInModal }  from '../../../../../features/user/susiSlice';
 
 export default function SignUpCompleteForm() {
   const name = useSelector((state) => state.susiModal.name);
+  const dispatch = useDispatch();
+
+  const handleLogIn = () => {
+    dispatch(wipeModal());
+    dispatch(logInModal());
+  }
 
   return (
     <div>
       <Box className="c b i k">
         <Typography sx={{fontFamily: 'mohave', color: 'black'}} variant="h3" component="div">
-          Welcome! {name ? name + '!' : null}
+          Welcome! {name}
         </Typography>
       </Box>
       <Box className="c b i k">
@@ -36,7 +43,7 @@ export default function SignUpCompleteForm() {
             </Box>
           </Box>
           <Box className='c b i k' sx={{marginBottom:'15px', marginTop: '12px'}}>
-            <Button>
+            <Button onClick={() => handleLogIn()}>
               <Typography sx={{fontFamily: 'mohave', fontSize: 18}}>
               Log in
               </Typography>

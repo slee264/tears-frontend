@@ -7,9 +7,9 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import TextField from '@mui/material/TextField';
 
 import { useDispatch } from 'react-redux';
-import { registerModal, enterPasswordModal }  from '../../../../features/user/susiSlice';
+import { registerModal, enterPasswordModal }  from '../../../../../features/user/susiSlice';
 
-import { server } from '../../../../axios';
+import { server } from '../../../../../axios';
 
 export default function EnterEmailForm() {
   const dispatch = useDispatch();
