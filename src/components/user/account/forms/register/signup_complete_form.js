@@ -1,9 +1,8 @@
-import React, { useRef, useState } from 'react';
+import React from 'react';
 
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { wipeModal, logInModal }  from 'src/features/user/susiSlice';

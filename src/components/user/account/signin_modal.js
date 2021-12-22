@@ -55,6 +55,10 @@ export default function SignInModal() {
         return(<SignInModalTemplate operationTemplate=<SignUpCompleteForm /> />);
       }
 
+      default: {
+        return null;
+      }
+
     }
   }
 

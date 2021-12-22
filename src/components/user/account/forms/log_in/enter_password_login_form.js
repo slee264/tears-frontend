@@ -10,7 +10,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { wipeModal, enterEmailLogInModal } from 'src/features/user/susiSlice';
+import { enterEmailLogInModal } from 'src/features/user/susiSlice';
 import { logIn } from 'src/features/user/userSlice';
 
 import { server } from 'src/axios';

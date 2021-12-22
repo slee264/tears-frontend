@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import {
   BrowserRouter as Router,
@@ -20,8 +20,6 @@ import { logOut } from 'src/features/user/userSlice';
 
 import About from 'src/about';
 import SignInModal from 'src/components/user/account/signin_modal';
-
-import Cookies from 'js-cookie';
 
 import 'src/style/index.css';
 import { server } from 'src/axios';

@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { PURGE } from 'redux-persist';
 
 export const susiModalSlice = createSlice({
   name: 'susiModal',
