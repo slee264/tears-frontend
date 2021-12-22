@@ -11,10 +11,10 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Cookies, { useCookies } from 'react-cookie';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { wipeModal, enterEmailLogInModal } from '../../../../../features/user/susiSlice';
-import { logIn } from '../../../../../features/user/userSlice';
+import { wipeModal, enterEmailLogInModal } from 'src/features/user/susiSlice';
+import { logIn } from 'src/features/user/userSlice';
 
-import { server } from '../../../../../axios';
+import { server } from 'src/axios';
 
 export default function EnterPasswordForm() {
   const email = useSelector((state) => state.susiModal.email);

@@ -25,7 +25,7 @@ import Typography from '@mui/material/Typography';
 import Slide from '@mui/material/Slide';
 import Snackbar from '@mui/material/Snackbar';
 
-import { server } from '../../axios';
+import { server } from 'src/axios';
 import "@fontsource/merriweather"
 import "@fontsource/roboto"
 import "@fontsource/roboto-condensed"

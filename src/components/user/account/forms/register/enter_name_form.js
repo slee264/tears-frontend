@@ -6,9 +6,9 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { signUpFinishModal }  from '../../../../../features/user/susiSlice';
+import { signUpFinishModal }  from 'src/features/user/susiSlice';
 
-import { server } from '../../../../../axios';
+import { server } from 'src/axios';
 
 export default function EnterNameForm() {
   const [valid_name, setValidName] = useState(null);

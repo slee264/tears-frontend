@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 
 import { useDispatch } from 'react-redux';
-import { registerModal, enterEmailLogInModal } from '../../../../features/user/susiSlice';
+import { registerModal, enterEmailLogInModal } from 'src/features/user/susiSlice';
 
 export default function SignInForm(){
   const dispatch = useDispatch();

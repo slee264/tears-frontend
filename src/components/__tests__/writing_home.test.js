@@ -1,7 +1,7 @@
 import { fireEvent, render, screen, cleanup } from '@testing-library/react';
 import "@testing-library/jest-dom/extend-expect";
 import TestRenderer from 'react-test-renderer';
-import WritingHome from '../writing/writing_home';
+import WritingHome from 'src/components/writing/writing_home';
 
 describe('writing home', () => {
   it("renders default state", () => {

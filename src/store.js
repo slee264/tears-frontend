@@ -11,8 +11,8 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
-import susiModalSlice from './features/user/susiSlice';
-import userSlice from './features/user/userSlice';
+import susiModalSlice from 'src/features/user/susiSlice';
+import userSlice from 'src/features/user/userSlice';
 
 const persistConfig = {
   key: 'root',

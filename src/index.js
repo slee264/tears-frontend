@@ -11,7 +11,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import "@fontsource/mohave";
 
-import store from './store';
+import store from 'src/store';
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react'
 import { Provider, useSelector, useDispatch } from 'react-redux';

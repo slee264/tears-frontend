@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { wipeModal, logInModal }  from '../../../../../features/user/susiSlice';
+import { wipeModal, logInModal }  from 'src/features/user/susiSlice';
 
 export default function SignUpCompleteForm() {
   const name = useSelector((state) => state.susiModal.name);
