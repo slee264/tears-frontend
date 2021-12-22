@@ -5,7 +5,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 
 import { useDispatch } from 'react-redux';
-import { wipeModal} from '../../../../features/user/susiSlice';
+import { wipeModal } from '../../../../features/user/susiSlice';
 
 export default function SignInModalTemplate(props) {
   const dispatch = useDispatch();

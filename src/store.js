@@ -1,6 +1,6 @@
+import { combineReducers } from 'redux';
 import { configureStore } from '@reduxjs/toolkit';
 import {
-  persistStore,
   persistReducer,
   FLUSH,
   REHYDRATE,
@@ -10,10 +10,9 @@ import {
   REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import { PersistGate } from 'redux-persist/integration/react';
 
-import userReducer from './features/user/userSlice';
-import susiModalReducer from './features/user/susiSlice';
+import susiModalSlice from './features/user/susiSlice';
+import userSlice from './features/user/userSlice';
 
 const persistConfig = {
   key: 'root',
@@ -21,13 +20,18 @@ const persistConfig = {
   storage,
 }
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+const userReducer_Persisted = persistReducer(
+  persistConfig,
+  userSlice
+);
 
-export default store = configureStore({
-  reducer: {
-    user: userReducer,
-    susiModal: susiModalReducer,
-  },
+const combinedReducer = combineReducers({
+  user: userReducer_Persisted,
+  susiModal: susiModalSlice,
+})
+
+const store = configureStore({
+  reducer: combinedReducer,
   middleWare: (getDefaultMiddleWare) =>
     getDefaultMiddleWare({
       serializableCheck: {
@@ -35,3 +39,5 @@ export default store = configureStore({
       },
     }),
 })
+
+export default store

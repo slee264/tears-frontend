@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { PURGE } from 'redux-persist';
 
 export const susiModalSlice = createSlice({
   name: 'susiModal',
@@ -43,7 +44,7 @@ export const susiModalSlice = createSlice({
       state.operation = null;
       state.valid_email = null;
       state.name = null;
-    }
+    },
   },
 })
 

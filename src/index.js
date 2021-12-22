@@ -5,20 +5,25 @@ import {
   Routes,
   Route
 } from "react-router-dom";
+
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import "@fontsource/mohave";
 
 import store from './store';
+import { persistStore } from 'redux-persist';
+import { PersistGate } from 'redux-persist/integration/react'
 import { Provider, useSelector, useDispatch } from 'react-redux';
 import { CookiesProvider } from "react-cookie";
-import { logInModal } from './features/user/susiSlice';
+import { logInModal } from 'src/features/user/susiSlice';
 
-import About from './about';
-import SignInModal from './components/user/account/signin_modal';
+import About from 'src/about';
+import SignInModal from 'src/components/user/account/signin_modal';
 
-import './style/index.css';
+import 'src/style/index.css';
+
+let persistor = persistStore(store);
 
 function Index(props) {
   const loggedIn = useSelector((state) => state.user.loggedIn);
@@ -77,7 +82,9 @@ function Index(props) {
 ReactDOM.render(
   <CookiesProvider>
     <Provider store={store}>
-      <Index />
+      <PersistGate loading={null} persistor={persistor}>
+        <Index />
+      </PersistGate>
     </Provider>
   </CookiesProvider>,
   document.getElementById('root')
