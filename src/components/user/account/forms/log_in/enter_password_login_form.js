@@ -8,7 +8,6 @@ import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import Cookies, { useCookies } from 'react-cookie';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { wipeModal, enterEmailLogInModal } from 'src/features/user/susiSlice';
@@ -24,7 +23,6 @@ export default function EnterPasswordForm() {
   const [valid_password, setValidPassword] = useState(null);
   const [helper_text, setHelperText] = useState('');
   const [show_password, setShowPassword] = useState(false);
-  const [cookies, setCookie] = useCookies(['user']);
 
   const handleSignIn = async () => {
     let password = password_ref.current.value;
@@ -35,7 +33,8 @@ export default function EnterPasswordForm() {
     if(password.length > 7 && passwordRegExp.test(password)){
       try{
         const result = await server.post('/auth/login', {username: email, password: password}, {withCredentials: true});
-        // dispatch(logIn());
+        dispatch(logIn());
+        window.location.reload();
       }catch(error){
         if(error.response.data.message === 'INCORRECT_PASSWORD'){
           setValidPassword('invalid');

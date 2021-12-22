@@ -15,11 +15,13 @@ import store from 'src/store';
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react'
 import { Provider, useSelector, useDispatch } from 'react-redux';
-import { CookiesProvider } from "react-cookie";
 import { logInModal } from 'src/features/user/susiSlice';
+import { logOut } from 'src/features/user/userSlice';
 
 import About from 'src/about';
 import SignInModal from 'src/components/user/account/signin_modal';
+
+import Cookies from 'js-cookie';
 
 import 'src/style/index.css';
 
@@ -56,7 +58,7 @@ function Index(props) {
                         About
                       </Typography>
                     </Button>
-                    <Button onClick={loggedIn ? null : () => dispatch(logInModal())}>
+                    <Button onClick={loggedIn ? () => dispatch(logOut()) : () => dispatch(logInModal())}>
                       <Typography sx={{fontFamily: 'mohave', color: 'black'}} variant="h5" component="div">
                       {loggedIn ? 'Sign out' : 'Sign in'}
                       </Typography>
@@ -80,12 +82,10 @@ function Index(props) {
 }
 
 ReactDOM.render(
-  <CookiesProvider>
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <Index />
-      </PersistGate>
-    </Provider>
-  </CookiesProvider>,
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
+      <Index />
+    </PersistGate>
+  </Provider>,
   document.getElementById('root')
 );
