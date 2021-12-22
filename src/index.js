@@ -1,4 +1,4 @@
-import React, { useState, useEffct } from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import {
   BrowserRouter as Router,
@@ -24,6 +24,7 @@ import SignInModal from 'src/components/user/account/signin_modal';
 import Cookies from 'js-cookie';
 
 import 'src/style/index.css';
+import { server } from 'src/axios';
 
 let persistor = persistStore(store);
 
@@ -32,6 +33,12 @@ function Index(props) {
   const susiModalStep = useSelector((state) => state.susiModal.step);
 
   const dispatch = useDispatch();
+
+  const handleLogOut = async () => {
+    const result = await server.get('/auth/logout', {withCredentials: true});
+    dispatch(logOut());
+    window.location.reload();
+  }
 
   return(
     <div>
@@ -58,7 +65,7 @@ function Index(props) {
                         About
                       </Typography>
                     </Button>
-                    <Button onClick={loggedIn ? () => dispatch(logOut()) : () => dispatch(logInModal())}>
+                    <Button onClick={loggedIn ? () => handleLogOut() : () => dispatch(logInModal())}>
                       <Typography sx={{fontFamily: 'mohave', color: 'black'}} variant="h5" component="div">
                       {loggedIn ? 'Sign out' : 'Sign in'}
                       </Typography>
