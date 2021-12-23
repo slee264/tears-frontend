@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import {
   BrowserRouter as Router,
@@ -20,8 +20,10 @@ import { logOut } from 'src/features/user/userSlice';
 
 import About from 'src/about';
 import SignInModal from 'src/components/user/account/signin_modal';
+import MenuTabHorizontal from './menu-tab-horizontal';
 
 import 'src/style/index.css';
+import 'src/style/new_index.css';
 import { server } from 'src/axios';
 
 let persistor = persistStore(store);
@@ -29,7 +31,6 @@ let persistor = persistStore(store);
 function Index(props) {
   const loggedIn = useSelector((state) => state.user.loggedIn);
   const susiModalStep = useSelector((state) => state.susiModal.step);
-
   const dispatch = useDispatch();
 
   const handleLogOut = async () => {
@@ -39,57 +40,85 @@ function Index(props) {
   }
 
   return(
-    <div>
-      <Router>
-        <nav class="b c" style={{backgroundColor: '#ffffff', boxShadow: "0 4px 12px 0 rgb(0 0 0 / 30%)", zIndex: 500, position: 'absolute', right: 0, left: 0, top: 0}}>
-          <Box className="a c e">
-            <Box sx={{margin: "0 64px"}}>
-              <Box className="a c d" sx={{ height: 65}}>
-                <Box className="b c" sx={{zIndex: 500, flex: "1 0 auto"}}>
-                  <Box className="a c d">
-                    <Button href='/'>
-                      <Box className="b" sx={{borderRight: 'none', paddingRight: 0}}>
-                        <Typography sx={{fontFamily: 'mohave', color: 'black'}} variant="h2" component="div">
-                          TEARs
-                        </Typography>
-                      </Box>
-                    </Button>
-                  </Box>
-                </Box>
-                <Box className="b c" sx={{flex: "0 0 auto", zIndex: 500}}>
-                  <Box className="a c d e">
-                    <Button href='/about'>
-                      <Typography sx={{fontFamily: 'mohave', color: 'black'}} variant="h5" component="div">
-                        About
-                      </Typography>
-                    </Button>
-                    <Button onClick={loggedIn ? () => handleLogOut() : () => dispatch(logInModal())}>
-                      <Typography sx={{fontFamily: 'mohave', color: 'black'}} variant="h5" component="div">
-                      {loggedIn ? 'Sign out' : 'Sign in'}
-                      </Typography>
-                    </Button>
-                  </Box>
-                </Box>
-              </Box>
-            </Box>
-          </Box>
-        </nav>
-        <Box className="b c" sx={{marginTop: 0, marginBottom: 0, height: '65px'}}>
-        </Box>
-        <Routes>
-          <Route path="/about" element={<About />} />
-          <Route path="/signin" element={<SignInModal />} />
-        </Routes>
-        {susiModalStep ? <SignInModal /> : null}
-      </Router>
-    </div>
+    <body class='template-index'>
+      <div id='tears-header'>
+        <header class='site-header border-bottom logo--left' role='banner'>
+          <div class='grid grid--no-gutters grid--table site-header__mobile-nav'>
+            <div class='grid__item medium-up--one-quarter logo-align--left'>
+              <div class='site-header__logo'>
+                <Button href='/'>
+                    <Typography sx={{fontFamily: 'mohave', color: 'black'}} variant="h2" component="div">
+                      TEARs
+                    </Typography>
+                </Button>
+              </div>
+            </div>
+            <nav class="grid__item new-half" id='AccessbileNav' role="navigation">
+              <ul class='site-nav list--inline' id='SiteNav'>
+                <li class='site-nav--active'>
+                  <Button>
+                    <Typography sx={{fontFamily: 'mohave', color: 'black'}} variant="h5" component="div">
+                      Talk
+                    </Typography>
+                  </Button>
+                </li>
+                <li>
+                  <Button>
+                    <Typography sx={{fontFamily: 'mohave', color: 'black'}} variant="h5" component="div">
+                      Exercise
+                    </Typography>
+                  </Button>
+                </li>
+                <li>
+                  <Button>
+                    <Typography sx={{fontFamily: 'mohave', color: 'black'}} variant="h5" component="div">
+                      Write
+                    </Typography>
+                  </Button>
+                </li>
+                <li>
+                  <Button>
+                    <Typography sx={{fontFamily: 'mohave', color: 'black'}} variant="h5" component="div">
+                      Record
+                    </Typography>
+                  </Button>
+                </li>
+                <li>
+                  <Button href='/about'>
+                    <Typography sx={{fontFamily: 'mohave', color: 'black'}} variant="h5" component="div">
+                      About
+                    </Typography>
+                  </Button>
+                </li>
+                <li>
+                  <Button onClick={loggedIn ? () => handleLogOut() : () => dispatch(logInModal())}>
+                    <Typography sx={{fontFamily: 'mohave', color: 'black'}} variant="h5" component="div">
+                    {loggedIn ? 'Sign out' : 'Sign in'}
+                    </Typography>
+                  </Button>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </header>
+      </div>
+      <div id="page-container" class="page-container drawer-page-content">
+      {susiModalStep ? <SignInModal /> : null}
+      </div>
+    </body>
   );
 }
 
 ReactDOM.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-      <Index />
+      <Router>
+        <Index />
+        <Routes>
+          <Route path="/about" element={<About />} />
+          <Route path="/signin" element={<SignInModal />} />
+        </Routes>
+      </Router>
     </PersistGate>
   </Provider>,
   document.getElementById('root')
