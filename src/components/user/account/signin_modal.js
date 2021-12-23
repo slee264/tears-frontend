@@ -15,7 +15,6 @@ import SignUpCompleteForm from './forms/register/signup_complete_form';
 
 import EnterEmailLogInForm from './forms/log_in/enter_email_login_form';
 import EnterPasswordLogInForm from './forms/log_in/enter_password_login_form';
-import 'src/style/index.css';
 
 export default function SignInModal() {
   const susiModalStep = useSelector((state) => state.susiModal.step);

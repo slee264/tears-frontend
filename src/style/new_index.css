@@ -29,7 +29,7 @@ body, button {
   -webkit-text-size-adjust: 100%;
 }
 
-header, nav {
+header, main, nav {
   display: block;
 }
 
@@ -178,4 +178,35 @@ li {
   transition: all .45s cubic-bezier(.29, .63, .44, 1);
   position: relative;
   overflow: hidden;
+}
+
+.main-content {
+  opacity: 0;
+}
+
+.main-content {
+  opacity: 1;
+}
+
+.main-content {
+  display: block;
+  padding-top: 60px;
+}
+
+.tears-section {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.main-content .tears-section {
+  display: inherit;
+}
+
+.about {
+  text-align: center;
+  padding-top: 150px;
+}
+
+.writing-content {
+  padding-top: 60px;
 }

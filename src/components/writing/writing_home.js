@@ -74,9 +74,9 @@ export default function WritingHome(props){
       card = (
         <Card data-testid="card-add-new" sx={{background: '#457b9d', color: '#fff', maxWidth: 345, height: 150, mx:2, mt: 2}}>
           <CardActionArea data-testid="card-action-area-add-new" onClick={handleClickNew}>
-              <Typography align='center' variant='h2' component="div" gutterBottom>
+            <Typography align='center' variant='h2' component="div" gutterBottom>
                 +
-              </Typography>
+            </Typography>
             <CardContent align='center'>
               <Typography variant="h5" component="div">
                 Write a story
@@ -253,16 +253,16 @@ export default function WritingHome(props){
   }
 
   const delete_confirm_box_style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  boxShadow: 24,
-  p: 4,
-  textAlign: 'center'
-};
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    boxShadow: 24,
+    p: 4,
+    textAlign: 'center'
+  };
 
   const theme = createTheme({
     typography:{
@@ -271,7 +271,7 @@ export default function WritingHome(props){
   });
 
   return(
-    <div>
+    <div class='writing-content'>
       <Backdrop sx={{ color: '#FFFFFF'}}
                 open={backdrop_open}
                 onClick={handleCloseBackdrop}
