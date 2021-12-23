@@ -16,12 +16,16 @@ import { Provider, useSelector, useDispatch } from 'react-redux';
 import { logInModal } from 'src/features/user/susiSlice';
 import { logOut } from 'src/features/user/userSlice';
 
-import About from 'src/about';
+import About from 'src/components/about';
+import AboutTalk from 'src/components/about_talk';
+import AboutExercise from 'src/components/about_exercise';
+import AboutWrite from 'src/components/about_write';
+// import AboutRecord from 'src/components/about_record';
+
 import SignInModal from 'src/components/user/account/signin_modal';
 import Home from './components/home.js';
 import WritingHome from './components/writing/writing_home.js';
 import TalkingHome from './components/talking/talking_home.js';
-
 
 import 'src/style/modal.css';
 import 'src/style/new_index.css';
@@ -58,28 +62,28 @@ function Index(props) {
               <nav class="grid__item new-half ?small--hide?" id='AccessbileNav' role="navigation">
                 <ul class='site-nav list--inline' id='SiteNav'>
                   <li class='site-nav--active'>
-                    <Button>
+                    <Button href={loggedIn ? '/talk' : '/about_talk'}>
                       <Typography sx={{fontFamily: 'mohave', color: 'black'}} variant="h5" component="div">
                         Talk
                       </Typography>
                     </Button>
                   </li>
                   <li>
-                    <Button>
+                    <Button href={loggedIn ? '/exercise' : '/about_exercise'}>
                       <Typography sx={{fontFamily: 'mohave', color: 'black'}} variant="h5" component="div">
                         Exercise
                       </Typography>
                     </Button>
                   </li>
                   <li>
-                    <Button href='/write'>
+                    <Button href={loggedIn ? '/write' : '/about_write'}>
                       <Typography sx={{fontFamily: 'mohave', color: 'black'}} variant="h5" component="div">
                         Write
                       </Typography>
                     </Button>
                   </li>
                   <li>
-                    <Button>
+                    <Button href='/record'>
                       <Typography sx={{fontFamily: 'mohave', color: 'black'}} variant="h5" component="div">
                         Record
                       </Typography>
@@ -111,7 +115,28 @@ function Index(props) {
                 <Route path="/about" element={<About />} />
               </Routes>
               <Routes>
+                <Route path="/about_talk" element={<AboutTalk />}/>
+              </Routes>
+              <Routes>
+                <Route path="/about_exercise" element={<AboutExercise />}/>
+              </Routes>
+              <Routes>
+                <Route path="/about_write" element={<AboutWrite />} />
+              </Routes>
+              <Routes>
+                <Route path="/record"/>
+              </Routes>
+              <Routes>
+                <Route path="/talk"/>
+              </Routes>
+              <Routes>
+                <Route path="/exercise"/>
+              </Routes>
+              <Routes>
                 <Route path="/write" element={<WritingHome />} />
+              </Routes>
+              <Routes>
+                <Route path="/record"/>
               </Routes>
             </div>
           </main>
