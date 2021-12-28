@@ -59,7 +59,7 @@ export default function WritingHome(props){
 
   const fetchWrites = async () => {
       let list = [];
-      const writes = await server.get('/writes');
+      const writes = await server.get('/writes', {withCredentials: true});
       writes.data.map(e => {list.push(
       <Grid item key={e.id} xs={3}>
       {cardBoilerPlate(e, false)}
@@ -189,7 +189,7 @@ export default function WritingHome(props){
       setConfirmAlert(false);
       setAlertOpen(true);
     }else {
-      const result = await server.post('/writes', {title: title.length == 0 ? 'No Title' : title, body: body});
+      const result = await server.post('/writes', {title: title.length == 0 ? 'No Title' : title, body: body}, {withCredentials: true});
       fetchWrites();
       setConfirmAlert(false);
       setAlertOpen(false);

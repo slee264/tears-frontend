@@ -24,11 +24,11 @@ import AboutWrite from 'src/components/about_write';
 
 import SignInModal from 'src/components/user/account/signin_modal';
 import Home from './components/home.js';
-import WritingHome from './components/writing/writing_home.js';
+import WritingHome from './components/writing/write_modal.js';
 import TalkingHome from './components/talking/talking_home.js';
 
 import 'src/style/modal.css';
-import 'src/style/new_index.css';
+import 'src/style/index.css';
 import { server } from 'src/axios';
 
 let persistor = persistStore(store);
@@ -41,7 +41,7 @@ function Index(props) {
   const handleLogOut = async () => {
     const result = await server.get('/auth/logout', {withCredentials: true});
     dispatch(logOut());
-    window.location.reload();
+    window.location.href = '/';
   }
 
   return(
@@ -61,6 +61,13 @@ function Index(props) {
               </div>
               <nav class="grid__item new-half ?small--hide?" id='AccessbileNav' role="navigation">
                 <ul class='site-nav list--inline' id='SiteNav'>
+                  <li>
+                    <Button href='/about'>
+                      <Typography sx={{fontFamily: 'mohave', color: 'black'}} variant="h5" component="div">
+                        About
+                      </Typography>
+                    </Button>
+                  </li>
                   <li class='site-nav--active'>
                     <Button href={loggedIn ? '/talk' : '/about_talk'}>
                       <Typography sx={{fontFamily: 'mohave', color: 'black'}} variant="h5" component="div">
@@ -90,13 +97,6 @@ function Index(props) {
                     </Button>
                   </li>
                   <li>
-                    <Button href='/about'>
-                      <Typography sx={{fontFamily: 'mohave', color: 'black'}} variant="h5" component="div">
-                        About
-                      </Typography>
-                    </Button>
-                  </li>
-                  <li>
                     <Button onClick={loggedIn ? () => handleLogOut() : () => dispatch(logInModal())}>
                       <Typography sx={{fontFamily: 'mohave', color: 'black'}} variant="h5" component="div">
                       {loggedIn ? 'Sign out' : 'Sign in'}
@@ -110,7 +110,9 @@ function Index(props) {
         </div>
         <div id="page-container" class="page-container drawer-page-content">
           <main id="main-content" class="main-content js-focus-hidden" role='main'>
-            <div class='tears-section index-section'>
+              <Routes>
+                <Route path="/" element={<About />} />
+              </Routes>
               <Routes>
                 <Route path="/about" element={<About />} />
               </Routes>
@@ -138,7 +140,6 @@ function Index(props) {
               <Routes>
                 <Route path="/record"/>
               </Routes>
-            </div>
           </main>
         </div>
       </body>
