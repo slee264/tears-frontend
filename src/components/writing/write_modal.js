@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { writeModal } from 'src/features/writing/writeSlice';
 
+import Alert from '@mui/material/Alert';
+import Snackbar from '@mui/material/Snackbar';
 import Backdrop from '@mui/material/Backdrop';
 import Card from '@mui/material/Card';
 import { CardActionArea } from '@mui/material';
@@ -16,24 +18,6 @@ import WriteEditForm from './forms/write_edit_form';
 import { server } from 'src/axios';
 
 export default function WritingHome() {
-  const [backdrop_open, setBackdropOpen] = useState(true);
-  const [writes_list, setWritesList] = useState([]);
-  const writeModalStep = useSelector((state) => state.writeModal.step);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    fetchWrites();
-  }, []);
-
-  const fetchWrites = async () => {
-    let list = [];
-    list.push(<li class="grid__item small--one-half medium-up--one-third"> {cardBoilerPlate({title: '', body: ''}, true)} </li>);
-    const writes = await server.get('/writes', {withCredentials: true});
-    writes.data.map(write => {
-      list.push(<li class="grid__item small--one-half medium-up--one-third"> {cardBoilerPlate(write, false)} </li>)
-    });
-    setWritesList(list);
-  }
 
   const cardBoilerPlate = (write, new_card) => {
     return(
@@ -55,6 +39,26 @@ export default function WritingHome() {
     )
   }
 
+  const fetchWrites = async () => {
+    let list = [];
+    list.push(<li class="grid__item small--one-half medium-up--one-third"> {cardBoilerPlate({title: '', body: ''}, true)} </li>);
+    const writes = await server.get('/writes', {withCredentials: true});
+    writes.data.map(write => {
+      list.push(<li class="grid__item small--one-half medium-up--one-third"> {cardBoilerPlate(write, false)} </li>)
+    });
+    setWritesList(list);
+  };
+
+  const [backdrop_open, setBackdropOpen] = useState(true);
+  const [writes_list, setWritesList] = useState([]);
+
+  const writeModalStep = useSelector((state) => state.writeModal.step);
+  const save_success = useSelector((state) => {
+    fetchWrites();
+    return state.writeModal.save_success
+  });
+  const dispatch = useDispatch();
+
   const handleClickCard = (write, new_card) => {
     dispatch(writeModal({write, new_card}));
   }
@@ -68,6 +72,15 @@ export default function WritingHome() {
 
   return(
     <div>
+      <div class="tears-section index-section">
+        <div class="page-width">
+          <div class="section-header text-center">
+          </div>
+          <ul class="grid grid--uniform grid--view-items">
+            {writes_list}
+          </ul>
+        </div>
+      </div>
       <Backdrop sx={{ zIndex: 500, color: '#FFFFFF'}}
                 open={backdrop_open}
                 onClick={() => setBackdropOpen(false)}
@@ -77,16 +90,11 @@ export default function WritingHome() {
           Write your story. It could be a short story, poem, song, prayer, anything you want.
         </Typography>
       </Backdrop>
-      <div class="tears-section index-section">
-        <div class="page-width">
-          <div class="section-header text-center">
-            Header
-          </div>
-          <ul class="grid grid--uniform grid--view-items">
-            {writes_list}
-          </ul>
-        </div>
-      </div>
+      <Snackbar anchorOrigin={{vertical: 'bottom', horizontal: 'center'}} open={save_success} autoHideDuration={4000}>
+        <Alert variant='filled' severity='success' sx={{ width: '100%'}}>
+          Saved! Well done!
+        </Alert>
+      </Snackbar>
       <div>
         <Modal open={writeModalStep}>
           {renderOperation()}

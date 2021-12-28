@@ -1,17 +1,20 @@
 import React, { useRef, useState } from 'react';
+import Alert from '@mui/material/Alert';
+import Snackbar from '@mui/material/Snackbar';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { setOnChange, wipeModal } from 'src/features/writing/writeSlice';
+import { wipeModal, saveSuccessModal } from 'src/features/writing/writeSlice';
 
 import { server } from 'src/axios';
 
 export default function WriteEditForm(){
   const [edit, setEdit] = useState(false);
   const [onChange, setOnChange] = useState(false);
+  const [save_success, setSaveSuccess] = useState(false);
   const dispatch = useDispatch();
 
   const write = useSelector((state) => state.writeModal.write);
@@ -25,7 +28,8 @@ export default function WriteEditForm(){
     const body = body_ref.current.value;
 
     const result = await server.post('/writes', {title: title.length == 0 ? 'No Title' : title, body: body.length == 0 ? 'Write something!' : body}, {withCredentials: true});
-    window.location.reload();
+    dispatch(saveSuccessModal());
+    dispatch(wipeModal());
   }
 
   const handleDiscard = () => {
@@ -34,6 +38,11 @@ export default function WriteEditForm(){
 
   return(
     <div>
+      <Snackbar anchorOrigin={{vertical: 'bottom', horizontal: 'center'}} open={save_success} autoHideDuration={4000}>
+        <Alert variant='filled' severity='success' sx={{ width: '100%'}}>
+          Saved! Well done!
+        </Alert>
+      </Snackbar>
       <Box className="c b i k">
         {edit || writeModalOperation === 'add_new' ?
           <TextField id="dialogue_title" onChange={() => setOnChange(true)} defaultValue={write.title} inputRef={title_ref} label="Title" variant="standard" fullWidth />
@@ -60,7 +69,7 @@ export default function WriteEditForm(){
           <Box className="b c k i" sx={{marginBottom:'58px'}}>
             <ul>
               <li>
-                <Button onClick={() => handleSave()}>
+                <Button disabled={!onChange} onClick={() => handleSave()}>
                   <Typography sx={{fontFamily: 'mohave', fontSize: 18}}>
                   Save
                   </Typography>
@@ -80,13 +89,14 @@ export default function WriteEditForm(){
                   </Typography>
                 </Button>
               </li>
-              <li>
+              { writeModalOperation === 'add_new' ? null : <li>
                 <Button>
                   <Typography sx={{fontFamily: 'mohave', fontSize: 18}}>
                   Delete
                   </Typography>
                 </Button>
               </li>
+            }
             </ul>
           </Box>
         </Box>

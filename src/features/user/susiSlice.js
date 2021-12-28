@@ -1,12 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const initialState = {
+  step: null,
+  operation: null,
+  valid_email: null,
+  name: null,
+}
+
 export const susiModalSlice = createSlice({
   name: 'susiModal',
-  initialState: {
-    step: null,
-    operation: null,
-  },
-
+  initialState,
   reducers: {
     logInModal: (state) => {
       state.step = 'SIGNIN_OPTIONS';
@@ -39,10 +42,7 @@ export const susiModalSlice = createSlice({
       state.name = action.payload.name;
     },
     wipeModal: (state) => {
-      state.step = null;
-      state.operation = null;
-      state.valid_email = null;
-      state.name = null;
+      return initialState;
     },
   },
 })
