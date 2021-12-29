@@ -27,8 +27,8 @@ export default function WritingHome() {
   const writeModalStep = useSelector((state) => state.writeModal.step);
   const writeModalStatus = useSelector((state) => state.writeModal.status);
 
-  useEffect(() => {
-    fetchWrites();
+  useEffect(async () => {
+    setWritesList(await fetchWrites());
   }, []);
 
   const cardBoilerPlate = (write, new_card) => {
@@ -52,14 +52,14 @@ export default function WritingHome() {
   }
 
   const fetchWrites = async () => {
-
+    console.log('hi');
     let list = [];
     const writes = await server.get('/writes', {withCredentials: true});
-    list.push(<li class="grid__item small--one-half medium-up--one-third"> {cardBoilerPlate({title: '', body: ''}, true)} </li>);
+    list.push(<li key='add_new' class="grid__item small--one-half medium-up--one-third"> {cardBoilerPlate({title: '', body: ''}, true)} </li>);
     writes.data.map(write => {
-      list.push(<li class="grid__item small--one-half medium-up--one-third"> {cardBoilerPlate(write, false)} </li>)
+      list.push(<li key={write.id} class="grid__item small--one-half medium-up--one-third"> {cardBoilerPlate(write, false)} </li>)
     });
-    setWritesList(list);
+    return list;
   };
 
   const dispatch = useDispatch();
@@ -78,10 +78,11 @@ export default function WritingHome() {
   const renderAlert = () => {
     switch(true) {
       case (writeModalStatus === 'save'):
-        console.log('hi');
-        return (<SuccessSnackBar />);
+        return (<SuccessSnackBar args={{type: 'success', message: 'Saved! Well done!'}}/>);
+      case (writeModalStatus === 'delete'):
+        return (<SuccessSnackBar args={{type: 'error', message: 'Deleted!'}}/>);
     }
-    fetchWrites();
+
   }
 
   return(

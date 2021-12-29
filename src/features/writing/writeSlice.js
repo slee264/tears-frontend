@@ -27,6 +27,9 @@ export const writeModalSlice = createSlice({
     saveWriteModal: (state) => {
       state.status = 'save';
     },
+    deleteWriteModal: (state) => {
+      state.status = 'delete';
+    },
     wipeModal: (state) => {
       return initialState;
     },
@@ -34,6 +37,6 @@ export const writeModalSlice = createSlice({
 
 })
 
-export const { writeModal, wipeModal, saveWriteModal, editWriteModal } = writeModalSlice.actions
+export const { writeModal, wipeModal, saveWriteModal, editWriteModal, deleteWriteModal } = writeModalSlice.actions
 
 export default writeModalSlice.reducer

@@ -48,6 +48,7 @@ export default function WriteModalTemplate(props) {
         open={anchorEl}
         anchorEl={anchorEl}
         onClose={() => setAnchorEl(false)}
+        elevation={15}
         anchorOrigin={{
           vertical:  'bottom',
           horizontal: 'left',
@@ -56,7 +57,7 @@ export default function WriteModalTemplate(props) {
           vertical: 'top',
           horizontal: 'left'
         }}>
-        <Typography sx={{ p: 2 }}>Save first or discard!</Typography>
+        <Typography sx={{ p: 2, color: 'red'}}>Save first or discard!</Typography>
       </Popover>
     </div>
   )

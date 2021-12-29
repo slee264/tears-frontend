@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { wipeModal, saveWriteModal, editWriteModal } from 'src/features/writing/writeSlice';
+import { wipeModal, saveWriteModal, editWriteModal, deleteWriteModal } from 'src/features/writing/writeSlice';
 
 import { server } from 'src/axios';
 
@@ -52,7 +52,9 @@ export default function WriteEditForm(){
   }
 
   const handleDelete = async () => {
-
+    const result = server.delete('/writes/' + write.id, {withCredentials: true});
+    dispatch(wipeModal());
+    dispatch(deleteWriteModal());
   }
 
   const handleTextChange = () => {
