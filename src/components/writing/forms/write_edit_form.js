@@ -9,7 +9,7 @@ import { wipeModal, saveWriteModal, editWriteModal, deleteWriteModal } from 'src
 
 import { server } from 'src/axios';
 
-export default function WriteEditForm(){
+export default function WriteEditForm(props){
   const [edit, setEdit] = useState(false);
   const [onChange, setOnChange] = useState(false);
   const [save_success, setSaveSuccess] = useState(false);
@@ -33,17 +33,18 @@ export default function WriteEditForm(){
       body = write.body;
     }
 
-    let result;
+    let new_list;
     if(writeModalOperation === 'new') {
-      result = await server.post('/writes', {title: title.length == 0 ? 'No Title' : title, body: body.length == 0 ? 'Write something!' : body}, {withCredentials: true});
+      new_list = await server.post('/writes', {title: title.length == 0 ? 'No Title' : title, body: body.length == 0 ? 'Write something!' : body}, {withCredentials: true});
       dispatch(wipeModal());
     }
 
     if(writeModalOperation === 'patch'){
-      result = await server.patch('/writes/' + write.id, {title, body}, {withCredentials: true});
+      new_list = await server.patch('/writes/' + write.id, {title, body}, {withCredentials: true});
       setOnChange(false);
     }
 
+    props.updateWritesList(new_list);
     dispatch(saveWriteModal());
   }
 
@@ -52,7 +53,8 @@ export default function WriteEditForm(){
   }
 
   const handleDelete = async () => {
-    const result = server.delete('/writes/' + write.id, {withCredentials: true});
+    const new_list = await server.delete('/writes/' + write.id, {withCredentials: true});
+    props.updateWritesList(new_list);
     dispatch(wipeModal());
     dispatch(deleteWriteModal());
   }

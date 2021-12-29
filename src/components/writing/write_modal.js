@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { writeModal } from 'src/features/writing/writeSlice';
+import { writeModal, setWritesList } from 'src/features/writing/writeSlice';
 
 import Backdrop from '@mui/material/Backdrop';
 import Card from '@mui/material/Card';
@@ -22,14 +22,25 @@ import { server } from 'src/axios';
 export default function WritingHome() {
 
   const [backdrop_open, setBackdropOpen] = useState(true);
-  const [writes_list, setWritesList] = useState([]);
+  const [writes_list, setWritesList] = useState(null);
+
+  useEffect(async () => {
+    const writes = await server.get('/writes', {withCredentials: true});
+    setWritesList(writes);
+  }, []);
+
+  const renderList = () => {
+    let list = [];
+    list.push(<li key='add_new' class="grid__item small--one-half medium-up--one-third"> {cardBoilerPlate({title: '', body: ''}, true)} </li>);
+    if(writes_list) writes_list.data.map(write => {
+      list.push(<li key={write.id} class="grid__item small--one-half medium-up--one-third"> {cardBoilerPlate(write, false)} </li>)
+    });
+
+    return list;
+  }
 
   const writeModalStep = useSelector((state) => state.writeModal.step);
   const writeModalStatus = useSelector((state) => state.writeModal.status);
-
-  useEffect(async () => {
-    setWritesList(await fetchWrites());
-  }, []);
 
   const cardBoilerPlate = (write, new_card) => {
     return(
@@ -51,17 +62,6 @@ export default function WritingHome() {
     )
   }
 
-  const fetchWrites = async () => {
-    console.log('hi');
-    let list = [];
-    const writes = await server.get('/writes', {withCredentials: true});
-    list.push(<li key='add_new' class="grid__item small--one-half medium-up--one-third"> {cardBoilerPlate({title: '', body: ''}, true)} </li>);
-    writes.data.map(write => {
-      list.push(<li key={write.id} class="grid__item small--one-half medium-up--one-third"> {cardBoilerPlate(write, false)} </li>)
-    });
-    return list;
-  };
-
   const dispatch = useDispatch();
 
   const handleClickCard = (write, new_card) => {
@@ -71,7 +71,7 @@ export default function WritingHome() {
   const renderOperation = () => {
     switch(true) {
       case (writeModalStep === 'WRITE_EDIT_OPTIONS'):
-        return(<WriteModalTemplate operationTemplate=<WriteEditForm /> />);
+        return(<WriteModalTemplate operationTemplate=<WriteEditForm updateWritesList={setWritesList}/> />);
     }
   }
 
@@ -82,7 +82,6 @@ export default function WritingHome() {
       case (writeModalStatus === 'delete'):
         return (<SuccessSnackBar args={{type: 'error', message: 'Deleted!'}}/>);
     }
-
   }
 
   return(
@@ -92,7 +91,7 @@ export default function WritingHome() {
           <div class="section-header text-center">
           </div>
           <ul class="grid grid--uniform grid--view-items">
-            {writes_list}
+          {renderList()}
           </ul>
         </div>
       </div>
