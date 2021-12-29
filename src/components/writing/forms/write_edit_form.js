@@ -40,8 +40,7 @@ export default function WriteEditForm(){
     }
 
     if(writeModalOperation === 'patch'){
-      console.log(write);
-      result = await server.patch('/writes/' + write.id, {title, content: body}, {withCredentials: true});
+      result = await server.patch('/writes/' + write.id, {title, body}, {withCredentials: true});
       setOnChange(false);
     }
 
