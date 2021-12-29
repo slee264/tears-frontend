@@ -4,11 +4,22 @@ import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { wipeModal } from 'src/features/writing/writeSlice';
 
 export default function WriteModalTemplate(props) {
+  const writeModalStatus = useSelector((state) => state.writeModal.status);
   const dispatch = useDispatch();
+
+  const handleClose = () => {
+    if(writeModalStatus === 'save'){
+      dispatch(wipeModal());
+    }
+    if(writeModalStatus === 'edit'){
+      console.log('needs to be saved or discarded first!');
+    }
+    dispatch(wipeModal());
+  }
 
   return(
     <div>
@@ -23,7 +34,7 @@ export default function WriteModalTemplate(props) {
               </Box>
             </Box>
             <Box className='b m c' sx={{right: '12px', top: '12px'}}>
-              <IconButton aria-label='close' onClick={() => {dispatch(wipeModal())}}>
+              <IconButton aria-label='close' onClick={() => handleClose()}>
                 <CloseIcon />
               </IconButton>
             </Box>

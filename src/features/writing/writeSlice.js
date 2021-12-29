@@ -4,7 +4,6 @@ const initialState = {
   step: null,
   operation: null,
   write: {title: '', body: ''},
-  save_success: false,
 }
 
 export const writeModalSlice = createSlice({
@@ -15,14 +14,17 @@ export const writeModalSlice = createSlice({
       state.step = 'WRITE_EDIT_OPTIONS';
 
       if(action.payload.new_card){
-        state.operation = 'add_new';
+        state.operation = 'new';
       }else{
         state.operation = 'patch';
-        state.write = {title: action.payload.write.title, body: action.payload.write.body};
+        state.write = action.payload.write;
       }
     },
-    saveSuccessModal: (state) => {
-      state.save_success = true;
+    editWriteModal: (state) =>{
+      state.status = 'edit';
+    },
+    saveWriteModal: (state) => {
+      state.status = 'save';
     },
     wipeModal: (state) => {
       return initialState;
@@ -30,6 +32,6 @@ export const writeModalSlice = createSlice({
   }
 })
 
-export const { writeModal, wipeModal, saveSuccessModal } = writeModalSlice.actions
+export const { writeModal, wipeModal, saveWriteModal, editWriteModal } = writeModalSlice.actions
 
 export default writeModalSlice.reducer
