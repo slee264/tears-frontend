@@ -10,9 +10,12 @@ import Grid from '@mui/material/Grid';
 import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
 
-import WriteModalTemplate from './forms/write_modal_template';
+import WriteModalTemplate from './templates/write_modal_template';
+import ConfirmModalTemplate from './templates/confirm_modal_template';
+
 import WriteEditForm from './forms/write_edit_form';
-import SuccessSnackBar from './forms/success_snackbar';
+import CloseConfirmForm from './forms/write_edit_form';
+import SuccessSnackBar from './misc/success_snackbar';
 
 import { server } from 'src/axios';
 
@@ -73,15 +76,12 @@ export default function WritingHome() {
   }
 
   const renderAlert = () => {
-    let alert;
     switch(true) {
       case (writeModalStatus === 'save'):
-        alert = (<SuccessSnackBar />);
-        break;
+        console.log('hi');
+        return (<SuccessSnackBar />);
     }
-
     fetchWrites();
-    return alert;
   }
 
   return(

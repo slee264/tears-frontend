@@ -4,6 +4,7 @@ const initialState = {
   step: null,
   operation: null,
   write: {title: '', body: ''},
+  status: 'initial',
 }
 
 export const writeModalSlice = createSlice({
@@ -26,12 +27,15 @@ export const writeModalSlice = createSlice({
     saveWriteModal: (state) => {
       state.status = 'save';
     },
+    confirmWriteModal: (state) => {
+      state.status = 'confirm';
+    },
     wipeModal: (state) => {
       return initialState;
     },
   }
 })
 
-export const { writeModal, wipeModal, saveWriteModal, editWriteModal } = writeModalSlice.actions
+export const { writeModal, wipeModal, saveWriteModal, editWriteModal, confirmWriteModal } = writeModalSlice.actions
 
 export default writeModalSlice.reducer
