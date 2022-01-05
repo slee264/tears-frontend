@@ -7,11 +7,12 @@ import TextField from '@mui/material/TextField';
 import { server } from 'src/axios';
 import Conversation from './conversation';
 import Message from './message';
+import TalkOnline from './talkOnline';
 
 import "./talk.css";
 
 export default function TalkingHome(props){
-  const current_user = useSelector(state => state.user.user_id);
+  const current_user_id = useSelector(state => state.user.user_id);
   const [conversation_list, setConversationList] = useState([]);
   const [current_chat, setCurrentChat] = useState({});
   const [messages, setMessages] = useState([]);
@@ -66,15 +67,10 @@ export default function TalkingHome(props){
     return rendered_list;
   }
 
-  const handleSend = () => {
-    socket.current.emit('message', message_ref.current.value);
-    message_ref.current.value = '';
-  }
-
   const renderConversationList = () => {
     let list = [];
     conversation_list.map((c) => {
-      list.push(<Conversation conversation={c} current_user={current_user} setCurrentChat={setCurrentChat}/> );
+      list.push(<Conversation conversation={c} current_user={current_user_id} setCurrentChat={setCurrentChat}/> );
     })
     return list;
   }
@@ -82,16 +78,27 @@ export default function TalkingHome(props){
   const renderMessages = () => {
     let list = [];
     messages.map((m) => {
-      list.push(<Message text={m.text}/>);
+      list.push(<Message message={m} own={m.sender === current_user_id}/>);
     })
     return list;
+  }
+
+  const renderTalkOnlines = () => {
+    let list = [];
+    list.push(<TalkOnline />);
+    return list;
+  }
+
+  const handleSend = () => {
+    socket.current.emit('message', message_ref.current.value);
+    message_ref.current.value = '';
   }
 
   return(
     <div className="talk">
       <div className="talkMenu">
         <div className="talkMenuWrapper">
-          <TextField label="Username" inputRef={name_ref} variant="standard" fullWidth />
+          <TextField label="username" inputRef={name_ref} variant="standard" fullWidth />
           {renderConversationList()}
         </div>
       </div>
@@ -100,12 +107,15 @@ export default function TalkingHome(props){
           <div className="talkBoxTop">
             {renderMessages()}
           </div>
-          <div className="talkBoxBottom"></div>
+          <div className="talkBoxBottom">
+            <TextField class="talkMessageInput" label="Write something!" inputRef={message_ref} variant="standard" fullWidth />
+            <Button>Send</Button>
+          </div>
         </div>
       </div>
       <div className="talkOnline">
         <div className="talkOnlineWrapper">
-        online
+        {renderTalkOnlines()}
         </div>
       </div>
     </div>

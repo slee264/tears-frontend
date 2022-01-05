@@ -12,6 +12,29 @@
   flex: 5.5;
 }
 
+.talkBoxWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.talkBoxTop {
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.talkBoxBottom {
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.talkMessageInput{
+  width: 88%;
+  height: 90px;
+}
+
 .talkOnline {
   flex: 3.0;
 }
