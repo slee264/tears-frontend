@@ -12,7 +12,6 @@ import { server } from 'src/axios';
 export default function WriteEditForm(props){
   const [edit, setEdit] = useState(false);
   const [onChange, setOnChange] = useState(false);
-  const [save_success, setSaveSuccess] = useState(false);
   const [write, setWrite] = useState(useSelector((state) => state.writeModal.write));
   const dispatch = useDispatch();
 

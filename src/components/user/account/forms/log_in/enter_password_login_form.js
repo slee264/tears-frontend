@@ -33,7 +33,7 @@ export default function EnterPasswordForm() {
     if(password.length > 7 && passwordRegExp.test(password)){
       try{
         const result = await server.post('/auth/login', {username: email, password: password}, {withCredentials: true});
-        dispatch(logIn());
+        dispatch(logIn(result.data.user_id));
         window.location.reload();
       }catch(error){
         if(error.response.data.message === 'INCORRECT_PASSWORD'){

@@ -1,0 +1,21 @@
+.talk {
+  margin-top: 90px;
+  height: calc(100vh - 70px);
+  display: flex;
+}
+
+.talkMenu {
+  flex: 3.5;
+}
+
+.talkBox {
+  flex: 5.5;
+}
+
+.talkOnline {
+  flex: 3.0;
+}
+
+.talkMenuWrapper, .talkBoxWrapper, .talkOnlineWrapper{
+  padding: 10px;
+}

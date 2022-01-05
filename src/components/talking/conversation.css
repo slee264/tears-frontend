@@ -1,0 +1,5 @@
+.conversation{
+  display: flex;
+  aligh-items: center;
+  padding: 10px;
+}

@@ -24,6 +24,7 @@ import AboutWrite from 'src/components/about_write';
 
 import SignInModal from 'src/components/user/account/signin_modal';
 import Home from './components/home.js';
+
 import WritingHome from './components/writing/write_modal.js';
 import TalkingHome from './components/talking/talking_home.js';
 
@@ -126,10 +127,10 @@ function Index(props) {
                 <Route path="/about_write" element={<AboutWrite />} />
               </Routes>
               <Routes>
-                <Route path="/record"/>
+                <Route path="/about_record"/>
               </Routes>
               <Routes>
-                <Route path="/talk"/>
+                <Route path="/talk" element={<TalkingHome />} />
               </Routes>
               <Routes>
                 <Route path="/exercise"/>
@@ -149,10 +150,10 @@ function Index(props) {
 }
 
 ReactDOM.render(
-  <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
-      <Index />
-    </PersistGate>
-  </Provider>,
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <Index />
+      </PersistGate>
+    </Provider>,
   document.getElementById('root')
 );

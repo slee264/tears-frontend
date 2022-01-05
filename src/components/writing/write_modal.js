@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { writeModal, setWritesList } from 'src/features/writing/writeSlice';
 
@@ -6,15 +6,12 @@ import Backdrop from '@mui/material/Backdrop';
 import Card from '@mui/material/Card';
 import { CardActionArea } from '@mui/material';
 import CardContent from '@mui/material/CardContent';
-import Grid from '@mui/material/Grid';
 import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
 
 import WriteModalTemplate from './templates/write_modal_template';
-import ConfirmModalTemplate from './templates/confirm_modal_template';
 
 import WriteEditForm from './forms/write_edit_form';
-import CloseConfirmForm from './forms/write_edit_form';
 import SuccessSnackBar from './misc/success_snackbar';
 
 import { server } from 'src/axios';
@@ -23,10 +20,15 @@ export default function WritingHome() {
 
   const [backdrop_open, setBackdropOpen] = useState(true);
   const [writes_list, setWritesList] = useState(null);
+  const writeModalStep = useSelector((state) => state.writeModal.step);
+  const writeModalStatus = useSelector((state) => state.writeModal.status);
 
-  useEffect(async () => {
-    const writes = await server.get('/writes', {withCredentials: true});
-    setWritesList(writes);
+  useEffect(() => {
+    async function fetchData() {
+      const writes = await server.get('/writes', {withCredentials: true});
+      setWritesList(writes);
+    }
+    fetchData();
   }, []);
 
   const renderList = () => {
@@ -38,9 +40,6 @@ export default function WritingHome() {
 
     return list;
   }
-
-  const writeModalStep = useSelector((state) => state.writeModal.step);
-  const writeModalStatus = useSelector((state) => state.writeModal.status);
 
   const cardBoilerPlate = (write, new_card) => {
     return(

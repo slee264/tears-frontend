@@ -6,6 +6,9 @@ import TextField from '@mui/material/TextField';
 
 import { server } from 'src/axios';
 import Conversation from './conversation';
+import Message from './message';
+
+import "./talk.css";
 
 export default function TalkingHome(props){
   const current_user = useSelector(state => state.user.user_id);
@@ -71,7 +74,7 @@ export default function TalkingHome(props){
   const renderConversationList = () => {
     let list = [];
     conversation_list.map((c) => {
-      list.push(<Button onClick={() => setCurrentChat(c)}> <Conversation conversation={c} current_user={current_user} /> </Button>);
+      list.push(<Conversation conversation={c} current_user={current_user} setCurrentChat={setCurrentChat}/> );
     })
     return list;
   }
@@ -79,33 +82,32 @@ export default function TalkingHome(props){
   const renderMessages = () => {
     let list = [];
     messages.map((m) => {
-      list.push(<li> {m.text} </li>);
+      list.push(<Message text={m.text}/>);
     })
     return list;
   }
 
   return(
-    <div>
-      <br /><br /><br /><br /><br />
-      <TextField label="Username" inputRef={name_ref} variant="standard" fullWidth />
-      <Button onClick={() => handleSearch()}>
-        Search user
-      </Button>
-      <ul>
-      {renderUserList()}
-      </ul>
-      <TextField label="Message" inputRef={message_ref} variant="standard" fullWidth />
-      <Button onClick={() => handleSend()}>
-        Send
-      </Button>
-      <ul>
-      {renderConversationList()}
-      </ul>
-      <ul>
-      {renderMessages()}
-      </ul>
-    </div>
-    <div className='talk'>
+    <div className="talk">
+      <div className="talkMenu">
+        <div className="talkMenuWrapper">
+          <TextField label="Username" inputRef={name_ref} variant="standard" fullWidth />
+          {renderConversationList()}
+        </div>
+      </div>
+      <div className="talkBox">
+        <div className="talkBoxWrapper">
+          <div className="talkBoxTop">
+            {renderMessages()}
+          </div>
+          <div className="talkBoxBottom"></div>
+        </div>
+      </div>
+      <div className="talkOnline">
+        <div className="talkOnlineWrapper">
+        online
+        </div>
+      </div>
     </div>
   )
 }
