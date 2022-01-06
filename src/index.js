@@ -42,7 +42,7 @@ function Index(props) {
   const handleLogOut = async () => {
     const result = await server.get('/auth/logout', {withCredentials: true});
     dispatch(logOut());
-    window.location.href = '/';
+    window.location.reload();
   }
 
   return(

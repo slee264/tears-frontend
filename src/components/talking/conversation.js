@@ -14,7 +14,7 @@ export default function Conversation(props) {
 
     //find all the members of the conversation that's not the current_user.
     const member_id = props.conversation.members.find((m) => m !== props.current_user);
-    
+
     const getUser = async () => {
       try{
         const res = await server.get('account/' + member_id);

@@ -27,7 +27,6 @@ export default function TalkingHome(props){
   const dispatch = useDispatch();
   let socket = useRef(null);
 
-
   //When you load or refresh the talk page
   useEffect(() => {
     //establish connection
@@ -35,6 +34,7 @@ export default function TalkingHome(props){
 
     //check for new messages
     socket.current.on('message', data => {
+
       setArrivalMessage({
         sender_id: data.sender_id,
         text: data.message,
@@ -87,7 +87,9 @@ export default function TalkingHome(props){
         console.log(err);
       }
     }
-    getMessages();
+    if(current_chat?._id){
+      getMessages();
+    }
 
   }, [current_chat]);
 
@@ -96,9 +98,30 @@ export default function TalkingHome(props){
     setSearchUserList(payload.data);
   }
 
+  const handleTalk = async (user_id) => {
+
+    //See if the conversatio alrady exists in the conversation_list
+    const c = conversation_list.find(conversation => conversation.members.includes(user_id))
+
+    if(c){
+      //Already having a conversation
+      setCurrentChat(c);
+    }else{
+      //Need to set up a conversation
+      //But I do not want to store the conversation in the db just yet
+      //because I do not want conversations with no messages in the db.
+      //So I'm just creating a placeholder for now.
+      const placeholder_conversation = {_id: '', members: [current_user_id, user_id]};
+      setCurrentChat(placeholder_conversation);
+      setConversationList(prev => [...prev, placeholder_conversation]);
+    }
+
+    name_ref.current.value = '';
+  }
+
   const renderUserList = () => {
     let rendered_list = [];
-    search_user_list.map(item => rendered_list.push(<li key={item.id}> { item.name }, {item.username} <Button> Invite to chat </Button> </li>));
+    search_user_list.map(user => rendered_list.push(<li key={user.id}> { user.name }, { user.username } <Button onClick={() => handleTalk(user.id)}> Talk </Button> </li>));
     return rendered_list;
   }
 
@@ -119,22 +142,29 @@ export default function TalkingHome(props){
   }
 
   const renderTalkOnlines = () => {
-    let list = [];
-    online_users.map((user) => {
-      list.push(<TalkOnline user={user} current_user_id={current_user_id} setCurrentChat={setCurrentChat}/>);
-    })
-    return list;
+    // let list = [];
+    // online_users.map((user) => {
+    //   list.push(<TalkOnline user={user} current_user_id={current_user_id} setCurrentChat={setCurrentChat}/>);
+    // })
+    // return list;
   }
 
   const handleSend = async () => {
     if(message_ref.current.value && current_chat){
+      let conversationId = current_chat._id;
+      const receiver_id = current_chat.members.find(member => member !== current_user_id);
+
+      //If this is a placeholder conversation with no messages, now create the conversation in the db.
+      if(current_chat._id === ''){
+        const result = await server.post('/conversations', {sender_id: current_user_id, receiver_id: receiver_id}, {withCredentials: true});
+        conversationId = result.data._id;
+      }
+
       const message = {
         sender: current_user_id,
         text: message_ref.current.value,
-        conversationId: current_chat._id
+        conversationId: conversationId,
       }
-
-      const receiver_id = current_chat.members.find(member => member !== current_user_id);
 
       socket.current.emit('message',{
         sender_id: current_user_id,
@@ -178,7 +208,7 @@ export default function TalkingHome(props){
       <div className="talkOnline">
         <div className="talkOnlineWrapper">
         <TextField label="username" inputRef={name_ref} variant="standard" fullWidth />
-        <Button onClick={() => handleSearchUser()}>Send</Button>
+        <Button onClick={() => handleSearchUser()}>Search</Button>
         <ul>
         {renderUserList()}
         </ul>
