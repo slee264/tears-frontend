@@ -1,6 +1,6 @@
 .talk {
   margin-top: 90px;
-  height: calc(100vh - 70px);
+  height: calc(100vh - 150px);
   display: flex;
 }
 
@@ -19,7 +19,7 @@
 }
 
 .talkBoxTop {
-  height: 100%;
+  height: 70vh;
   overflow-y: scroll;
 }
 

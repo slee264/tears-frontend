@@ -9,9 +9,12 @@ import './conversation.css';
 export default function Conversation(props) {
   const [user, setUser] = useState({});
 
+  //If the props.conversation changes
   useEffect(() => {
-    const member_id = props.conversation.members.find((m) => m !== props.current_user);
 
+    //find all the members of the conversation that's not the current_user.
+    const member_id = props.conversation.members.find((m) => m !== props.current_user);
+    
     const getUser = async () => {
       try{
         const res = await server.get('account/' + member_id);
