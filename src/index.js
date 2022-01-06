@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import {
   BrowserRouter as Router,
   Routes,
-  Route
+  Route,
 } from "react-router-dom";
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -70,21 +70,21 @@ function Index(props) {
                     </Button>
                   </li>
                   <li class='site-nav--active'>
-                    <Button href={loggedIn ? '/talk' : '/about_talk'}>
+                    <Button href='/talk'>
                       <Typography sx={{fontFamily: 'mohave', color: 'black'}} variant="h5" component="div">
                         Talk
                       </Typography>
                     </Button>
                   </li>
                   <li>
-                    <Button href={loggedIn ? '/exercise' : '/about_exercise'}>
+                    <Button href='/exercise'>
                       <Typography sx={{fontFamily: 'mohave', color: 'black'}} variant="h5" component="div">
                         Exercise
                       </Typography>
                     </Button>
                   </li>
                   <li>
-                    <Button href={loggedIn ? '/write' : '/about_write'}>
+                    <Button href='/write'>
                       <Typography sx={{fontFamily: 'mohave', color: 'black'}} variant="h5" component="div">
                         Write
                       </Typography>
@@ -113,32 +113,15 @@ function Index(props) {
           <main id="main-content" class="main-content js-focus-hidden" role='main'>
               <Routes>
                 <Route path="/" element={<About />} />
-              </Routes>
-              <Routes>
                 <Route path="/about" element={<About />} />
-              </Routes>
-              <Routes>
                 <Route path="/about_talk" element={<AboutTalk />}/>
-              </Routes>
-              <Routes>
                 <Route path="/about_exercise" element={<AboutExercise />}/>
-              </Routes>
-              <Routes>
                 <Route path="/about_write" element={<AboutWrite />} />
-              </Routes>
-              <Routes>
                 <Route path="/about_record"/>
-              </Routes>
-              <Routes>
-                <Route path="/talk" element={<TalkingHome />} />
-              </Routes>
-              <Routes>
+
+                <Route path="/talk" element={loggedIn ? <TalkingHome /> : <AboutTalk />} />
                 <Route path="/exercise"/>
-              </Routes>
-              <Routes>
-                <Route path="/write" element={<WritingHome />} />
-              </Routes>
-              <Routes>
+                <Route path="/write" element={loggedIn ? <WritingHome /> : <AboutWrite />} />
                 <Route path="/record"/>
               </Routes>
           </main>
